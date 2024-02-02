@@ -3,35 +3,34 @@ package sql;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Ing. Alex Espejel
  */
-    public class Conexion {
+public class Conexion {
 
-    protected Connection conexion;
-    private final String DB_URL = "jdbc:mysql://localhost/sistema_oficios";
-    private final String USER = "root";
-    private final String PASSWORD = "Audi2023";
+    public String DB_URL = "";
+    public String USER = "root";
+    public String PASSWORD = "Audi2023";
 
-    public void Conectar() throws ClassNotFoundException {
+    public static Connection conectar() {
         try {
 
-            conexion = DriverManager.getConnection(DB_URL, USER, PASSWORD);
-
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/sistema_oficios", "root", "Audi2023");
+            return conn;
         } catch (SQLException e) {
+            System.out.println("Error al conectar con la base de datos");
 
-            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, e);
         }
+        return null;
     }
-    
-    public void Cerrar() throws SQLException{
-        if(conexion != null){
-            if(!conexion.isClosed()){
-                conexion.close();
+
+    public void Cerrar() throws SQLException {
+        if (conectar() != null) {
+            if (!conectar().isClosed()) {
+                conectar().close();
+                System.out.println("Conexión cerrada");
             }
         }
     }
