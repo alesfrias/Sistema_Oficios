@@ -3,6 +3,7 @@ package sql;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,8 +21,7 @@ public class Conexion {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/sistema_oficios", "root", "Audi2023");
             return conn;
         } catch (SQLException e) {
-            System.out.println("Error al conectar con la base de datos");
-
+            JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos " + e);
         }
         return null;
     }

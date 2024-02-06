@@ -4,6 +4,7 @@ import java.sql.Statement;
 import java.sql.Connection;
 import sql.Conexion;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import model.UsuarioModel;
 
@@ -30,9 +31,8 @@ public class UsuarioController {
             while (rs.next()) {
                 respuesta = true;
             }
-        } catch (Exception e) {
-            System.out.println("Error al iniciar sesión" + e);
-            JOptionPane.showMessageDialog(null, "Error al iniciar sesión");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener los datos");
         }
         return respuesta;
     }
