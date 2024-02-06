@@ -11,10 +11,6 @@ import javax.swing.JOptionPane;
  */
 public class Conexion {
 
-    public String DB_URL = "";
-    public String USER = "root";
-    public String PASSWORD = "Audi2023";
-
     public static Connection conectar() {
         try {
 

@@ -2,10 +2,13 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import javax.swing.JPanel;
+
 /**
  *
  * @author alex
@@ -19,17 +22,23 @@ public class FrmAdmin extends javax.swing.JFrame {
         initComponents();
         setDate();
         ShowJPanel(new Usuarios());
-        
+
     }
-    
-    private void ShowJPanel(JPanel panel){
-        panel.setSize(995,559);
+
+    static void ShowJPanel(JPanel panel) {
+        panel.setSize(995, 559);
         panel.setLocation(0, 0);
-        
+
         jPContent.removeAll();
         jPContent.add(panel, BorderLayout.CENTER);
         jPContent.revalidate();
         jPContent.repaint();
+    }
+//Icono de formulario
+    @Override
+    public Image getIconImage() {
+        Image iconImage = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("img/favicon.png"));
+        return iconImage;
     }
 
     private void setDate() {
@@ -63,6 +72,8 @@ public class FrmAdmin extends javax.swing.JFrame {
         jPContent = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema de Oficios");
+        setIconImage(getIconImage());
         setResizable(false);
 
         jPBack.setBackground(new java.awt.Color(255, 255, 255));
@@ -81,11 +92,12 @@ public class FrmAdmin extends javax.swing.JFrame {
         lblUsuarios.setForeground(new java.awt.Color(255, 255, 255));
         lblUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/account-multiple.png"))); // NOI18N
         lblUsuarios.setText("Usuarios");
-        lblUsuarios.setBorder(null);
         lblUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblUsuarios.setIconTextGap(10);
-        lblUsuarios.setSize(new java.awt.Dimension(200, 50));
         lblUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblUsuariosMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblUsuariosMouseEntered(evt);
             }
@@ -297,7 +309,6 @@ public class FrmAdmin extends javax.swing.JFrame {
         lblHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblHeader.setText("Módulo de Administrador");
         lblHeader.setPreferredSize(new java.awt.Dimension(410, 50));
-        lblHeader.setSize(new java.awt.Dimension(1000, 60));
 
         javax.swing.GroupLayout jPHeaderLayout = new javax.swing.GroupLayout(jPHeader);
         jPHeader.setLayout(jPHeaderLayout);
@@ -318,7 +329,6 @@ public class FrmAdmin extends javax.swing.JFrame {
         lblDate.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
         jPContent.setBackground(new java.awt.Color(255, 255, 255));
-        jPContent.setSize(new java.awt.Dimension(995, 559));
 
         javax.swing.GroupLayout jPContentLayout = new javax.swing.GroupLayout(jPContent);
         jPContent.setLayout(jPContentLayout);
@@ -433,6 +443,11 @@ public class FrmAdmin extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_lblSalirMouseClicked
 
+    private void lblUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuariosMouseClicked
+        // TODO add your handling code here:
+        ShowJPanel(new Usuarios());
+    }//GEN-LAST:event_lblUsuariosMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -476,7 +491,7 @@ public class FrmAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel bckUsuarios;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPBack;
-    private javax.swing.JPanel jPContent;
+    private static javax.swing.JPanel jPContent;
     private javax.swing.JPanel jPHeader;
     private javax.swing.JPanel jPMenu;
     private javax.swing.JSeparator jSeparator1;

@@ -4,7 +4,15 @@
  */
 package view;
 
+import java.sql.Statement;
+import java.sql.Connection;
 import java.awt.Color;
+import javax.swing.table.DefaultTableModel;
+import sql.Conexion;
+import javax.swing.JOptionPane;
+import java.sql.SQLException;
+import java.sql.ResultSet;
+import javax.swing.JTable;
 
 /**
  *
@@ -17,6 +25,42 @@ public class Usuarios extends javax.swing.JPanel {
      */
     public Usuarios() {
         initComponents();
+        this.cargarTabla();
+    }
+
+    private void cargarTabla() {
+
+        Connection conn = Conexion.conectar();
+        DefaultTableModel tableModel = new DefaultTableModel();
+        String query = "SELECT user_id, user_name, depto_id, user_rfc, user_pwd, user_rol FROM usuario_sistema WHERE user_status = 1";
+        Statement st;
+
+        try {
+
+            st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            Usuarios.tblUsuarios = new JTable(tableModel);
+            Usuarios.tblScroll.setViewportView(Usuarios.tblUsuarios);
+
+            tableModel.addColumn("ID");
+            tableModel.addColumn("Nombre");
+            tableModel.addColumn("Departamento");
+            tableModel.addColumn("RFC");
+            tableModel.addColumn("Contraseña");
+
+            while (rs.next()) {
+                Object fila[] = new Object[5];
+                for (int i = 0; i < 5; i++) {
+                    fila[i] = rs.getObject(i + 1);
+                }
+
+                tableModel.addRow(fila);
+            }
+
+            conn.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al llenar la tabla de usuarios " + e);
+        }
     }
 
     /**
@@ -33,7 +77,7 @@ public class Usuarios extends javax.swing.JPanel {
         txtBuscar = new javax.swing.JTextField();
         bckBuscar = new javax.swing.JPanel();
         lblBuscar = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        tblScroll = new javax.swing.JScrollPane();
         tblUsuarios = new javax.swing.JTable();
         bckBorrar = new javax.swing.JPanel();
         lblBorrar = new javax.swing.JLabel();
@@ -42,11 +86,11 @@ public class Usuarios extends javax.swing.JPanel {
         bckNuevo = new javax.swing.JPanel();
         lblNuevo = new javax.swing.JLabel();
 
+        setMaximumSize(new java.awt.Dimension(995, 559));
+        setMinimumSize(new java.awt.Dimension(995, 559));
         setPreferredSize(new java.awt.Dimension(995, 559));
-        setSize(new java.awt.Dimension(995, 559));
 
         jPBack.setBackground(new java.awt.Color(255, 255, 255));
-        jPBack.setSize(new java.awt.Dimension(995, 559));
 
         lblHeader.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         lblHeader.setForeground(new java.awt.Color(0, 26, 90));
@@ -81,18 +125,18 @@ public class Usuarios extends javax.swing.JPanel {
             .addComponent(lblBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
+        tblUsuarios.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        tblUsuarios.setForeground(new java.awt.Color(0, 26, 90));
         tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblUsuarios);
+        tblUsuarios.setRowHeight(40);
+        tblScroll.setViewportView(tblUsuarios);
 
         bckBorrar.setBackground(new java.awt.Color(0, 26, 90));
 
@@ -156,6 +200,9 @@ public class Usuarios extends javax.swing.JPanel {
         lblNuevo.setText("Nuevo");
         lblNuevo.setPreferredSize(new java.awt.Dimension(137, 40));
         lblNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblNuevoMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblNuevoMouseEntered(evt);
             }
@@ -195,7 +242,7 @@ public class Usuarios extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(bckBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPBackLayout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 948, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tblScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 948, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPBackLayout.createSequentialGroup()
                                 .addComponent(txtBuscar)
@@ -213,7 +260,7 @@ public class Usuarios extends javax.swing.JPanel {
                     .addComponent(bckBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tblScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(bckBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -269,6 +316,11 @@ public class Usuarios extends javax.swing.JPanel {
 
     }//GEN-LAST:event_lblNuevoMouseExited
 
+    private void lblNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNuevoMouseClicked
+        // TODO add your handling code here:
+        FrmAdmin.ShowJPanel(new SetUsuarios());
+    }//GEN-LAST:event_lblNuevoMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bckBorrar;
@@ -276,13 +328,13 @@ public class Usuarios extends javax.swing.JPanel {
     private javax.swing.JPanel bckEditar;
     private javax.swing.JPanel bckNuevo;
     private javax.swing.JPanel jPBack;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBorrar;
     private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblEditar;
     private javax.swing.JLabel lblHeader;
     private javax.swing.JLabel lblNuevo;
-    private javax.swing.JTable tblUsuarios;
+    public static javax.swing.JScrollPane tblScroll;
+    public static javax.swing.JTable tblUsuarios;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }
