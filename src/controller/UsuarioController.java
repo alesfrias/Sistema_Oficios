@@ -71,6 +71,7 @@ public class UsuarioController {
             System.out.println(pst);
 
             ResultSet rs = pst.executeQuery();
+            System.out.println("Consulta --> " + rs.getString(usuario.getUser_name()));
             while (rs.next()) {
                 usuario.setUser_id(rs.getString("user_id"));
                 usuario.setUser_name(rs.getString("user_name"));
