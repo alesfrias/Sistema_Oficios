@@ -22,12 +22,13 @@ public class Conexion {
         return null;
     }
 
-    public void Cerrar() throws SQLException {
-        if (conectar() != null) {
-            if (!conectar().isClosed()) {
-                conectar().close();
-                System.out.println("Conexión cerrada");
-            }
-        }
-    }
+//    CERRAR CONEXIÓN
+//    public void Cerrar() throws SQLException {
+//        if (conectar() != null) {
+//            if (!conectar().isClosed()) {
+//                conectar().close();
+//                System.out.println("Conexión cerrada");
+//            }
+//        }
+//    }
 }

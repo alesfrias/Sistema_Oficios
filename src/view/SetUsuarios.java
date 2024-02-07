@@ -10,12 +10,30 @@ import model.UsuarioModel;
  * @author Ing. Alex Espejel
  */
 public class SetUsuarios extends javax.swing.JPanel {
+    boolean upd = false;
 
-    /**
-     * Creates new form SetUsuarios
-     */
     public SetUsuarios() {
         initComponents();
+        initUpdate(null);
+    }
+
+    public SetUsuarios(UsuarioModel usuario) {
+        initComponents();
+        upd = true;
+        initUpdate(usuario);
+    }
+
+    private void initUpdate( UsuarioModel usuario) {
+        if (upd) {
+            lblHeader.setText("Editar Usuario");
+            lblGuardar.setText("Actualizar Usuario");
+
+            if (usuario != null) {
+                txtNombre.setText(usuario.getUser_name());
+                txtRfc.setText(usuario.getUser_rfc());
+                txtContraseña.setText(usuario.getUser_pwd());
+            }
+        }
     }
 
     /**
@@ -71,7 +89,6 @@ public class SetUsuarios extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(0, 26, 90));
         jLabel2.setText("Departamento");
 
-        cmbArea.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "JEFATURA DE ESTUDIOS TÉCNICOS" }));
         cmbArea.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 cmbAreaKeyPressed(evt);
@@ -111,7 +128,7 @@ public class SetUsuarios extends javax.swing.JPanel {
         jLabel5.setForeground(new java.awt.Color(0, 26, 90));
         jLabel5.setText("Tipo de Usuario");
 
-        cmbRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Normal" }));
+        cmbRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un rol", "Administrador", "Normal" }));
 
         bckGuardar.setBackground(new java.awt.Color(0, 26, 90));
         bckGuardar.setPreferredSize(new java.awt.Dimension(350, 40));
