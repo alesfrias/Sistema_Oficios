@@ -4,6 +4,7 @@
  */
 package view;
 
+import controller.UsuarioController;
 import java.sql.Statement;
 import java.sql.Connection;
 import java.awt.Color;
@@ -13,6 +14,7 @@ import javax.swing.JOptionPane;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import javax.swing.JTable;
+import model.UsuarioModel;
 
 /**
  *
@@ -146,6 +148,9 @@ public class Usuarios extends javax.swing.JPanel {
         lblBorrar.setText("Borrar");
         lblBorrar.setPreferredSize(new java.awt.Dimension(137, 40));
         lblBorrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBorrarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblBorrarMouseEntered(evt);
             }
@@ -317,9 +322,25 @@ public class Usuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_lblNuevoMouseExited
 
     private void lblNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNuevoMouseClicked
-        // TODO add your handling code here:
         FrmAdmin.ShowJPanel(new SetUsuarios());
     }//GEN-LAST:event_lblNuevoMouseClicked
+
+    private void lblBorrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBorrarMouseClicked
+        UsuarioController usuarioController = new UsuarioController();
+        DefaultTableModel tableModel = new DefaultTableModel();
+
+        for (int i : tblUsuarios.getSelectedRows()) {
+            try {
+
+                usuarioController.delUser((int) tblUsuarios.getValueAt(i, 0));
+                tableModel.removeRow(i);
+
+            } catch (Exception e) {
+
+                JOptionPane.showMessageDialog(null, "Error al eliminar" + e);
+            }
+        }
+    }//GEN-LAST:event_lblBorrarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

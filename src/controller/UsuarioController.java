@@ -62,4 +62,27 @@ public class UsuarioController {
 
         return respuesta;
     }
+
+    public boolean delUser(int iduser) {
+
+        boolean respuesta = false;
+        Connection conn = Conexion.conectar();
+
+        try {
+
+            PreparedStatement query = conn.prepareStatement("UPDATE usuario_sistema SET user_status =  WHERE user_id = '" + iduser + "'");
+            
+            if (query.executeUpdate() >= 0) {
+                respuesta = true;
+            }
+
+            conn.close();
+
+        } catch (SQLException e) {
+
+            JOptionPane.showMessageDialog(null, "Error al eliminar usuario " + e);
+        }
+
+        return respuesta;
+    }
 }
