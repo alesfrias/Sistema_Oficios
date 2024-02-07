@@ -72,7 +72,7 @@ public class UsuarioController {
 
             PreparedStatement query = conn.prepareStatement("UPDATE usuario_sistema SET user_status =  WHERE user_id = '" + iduser + "'");
             
-            if (query.executeUpdate() >= 0) {
+            if (query.executeUpdate() > 0) {
                 respuesta = true;
             }
 
