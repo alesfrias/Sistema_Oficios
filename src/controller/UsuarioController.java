@@ -9,15 +9,10 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import model.UsuarioModel;
 
-/**
- *
- * @author Ing. Alex Espejel
- */
+//Método para iniciar sesión
 public class UsuarioController {
 
-    //Método para iniciar sesión
     public boolean userLogin(UsuarioModel usuario) {
-
         boolean respuesta = false;
 
         Connection conn = sql.Conexion.conectar();
@@ -38,8 +33,8 @@ public class UsuarioController {
         return respuesta;
     }
 
+//    Obtener Todos los Usuarios
     public boolean getUsers() {
-
         boolean respuesta = false;
 
         Connection conn = Conexion.conectar();
@@ -61,55 +56,36 @@ public class UsuarioController {
         return respuesta;
     }
 
+//    Obtener Usuario por ID
     public UsuarioModel getUserById(int userId) throws Exception {
-
         UsuarioModel usuario = new UsuarioModel();
+
         try {
             Connection conn = Conexion.conectar();
-            PreparedStatement pst = conn.prepareStatement("SELECT user_name, depto_id, user_rfc, user_pwd, user_rol FROM usuario_sistema WHERE user_id = ? AND user_status = 1");
-            pst.setInt(1, userId);
-            System.out.println(pst);
+            PreparedStatement st = conn.prepareStatement("SELECT user_id, user_name, user_rfc, user_pwd FROM usuario_sistema WHERE user_id = " + userId + " AND user_status = 1");
 
-            ResultSet rs = pst.executeQuery();
-            System.out.println("Consulta --> " + rs.getString(usuario.getUser_name()));
+            ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 usuario.setUser_id(rs.getString("user_id"));
                 usuario.setUser_name(rs.getString("user_name"));
                 usuario.setUser_rfc(rs.getString("user_rfc"));
+                usuario.setUser_pwd(rs.getNString("user_pwd"));
             }
-//            rs.close();
-//            pst.close();
-//            conn.close();
+            rs.close();
+            st.close();
+            conn.close();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al obtener usuario de la base de datos");
+            JOptionPane.showMessageDialog(null, "Error al obtener usuario de la base de datos: " + e);
         }
         return usuario;
-
-//        boolean respuesta = false;
-//        Connection conn = Conexion.conectar();
-//
-//        try {
-//            PreparedStatement query = conn.prepareStatement("SELECT user_name, depto_id, user_rfc, user_pwd, user_rol FROM usuario_sistema WHERE user_id = ? AND user_status = 1");
-//            query.setInt(1, userId);
-//
-//            if (query.executeUpdate() > 0) {
-//                respuesta = true;
-//            }
-//            conn.close();
-//
-//        } catch (SQLException e) {
-//
-//            JOptionPane.showMessageDialog(null, "Error al obtener usuario con ID: " + userId);
-//        }
-//
-//        return respuesta;
     }
 
+//    Agregar Usuario
     public boolean addUser(UsuarioModel usuario) {
-
         boolean respuesta = false;
         Connection conn = Conexion.conectar();
+
         try {
             PreparedStatement query = conn.prepareStatement("INSERT INTO usuario_sistema VALUES(?,?,?,?,?,?,1,now())");
             query.setString(1, "0");
@@ -127,13 +103,14 @@ public class UsuarioController {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al guardar el registro " + e);
         }
-
         return respuesta;
     }
 
-    public boolean updUser(UsuarioModel usuario, int idUsuario) {
+//    Actualizar Usuario
+    public boolean updUser(UsuarioModel usuario) {
         boolean respuesta = false;
         Connection conn = Conexion.conectar();
+
         try {
             PreparedStatement query = conn.prepareStatement("UPDATE usuario_sistema "
                     + "SET user_name = ?, depto_id = ?, user_rfc = ?, user_pwd = ?, user_rol = ? "
@@ -143,7 +120,7 @@ public class UsuarioController {
             query.setString(3, usuario.getUser_rfc());
             query.setString(4, usuario.getUser_pwd());
             query.setString(5, usuario.getUser_rol());
-            query.setInt(6, idUsuario);
+            query.setString(6, usuario.getUser_id());
 
             if (query.executeUpdate() > 0) {
                 respuesta = true;
@@ -155,6 +132,7 @@ public class UsuarioController {
         return respuesta;
     }
 
+//    Eliminar Usuario
     public boolean delUser(int iduser) {
 
         boolean respuesta = false;
@@ -175,7 +153,6 @@ public class UsuarioController {
 
             JOptionPane.showMessageDialog(null, "Error al eliminar usuario " + e);
         }
-
         return respuesta;
     }
 }

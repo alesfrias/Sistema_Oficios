@@ -50,24 +50,10 @@ public class Usuarios extends javax.swing.JPanel {
 
                 tableModel.addRow(fila);
             }
-
             conn.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al llenar la tabla de usuarios " + e);
         }
-
-//        tblUsuarios.addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                int fila = tblUsuarios.rowAtPoint(e.getPoint());
-//                int columna = 0;
-//
-//                if (fila > -1) {
-//                    idUsuario = (int) tableModel.getValueAt(fila, columna);
-//                    UsuarioId(idUsuario);
-//                }
-//            }
-//        });
     }
 
     @SuppressWarnings("unchecked")
@@ -108,6 +94,9 @@ public class Usuarios extends javax.swing.JPanel {
         lblBuscar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblBuscar.setText("Buscar");
         lblBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBuscarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblBuscarMouseEntered(evt);
             }
@@ -329,10 +318,9 @@ public class Usuarios extends javax.swing.JPanel {
 //        ImageIcon icono = new ImageIcon("src\\img\\alert.png");
         if (tblUsuarios.getSelectedRow() > -1) {
 
-            int borrar = JOptionPane.showConfirmDialog(null, "¿Deseas Continuar con el borrado?", "ELIMINAR USUARIO", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE/*, icono*/);
+            int borrar = JOptionPane.showConfirmDialog(null, "¿Deseas continuar con la eliminación?", "ELIMINAR USUARIO", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE/*, icono*/);
 
             if (borrar == 0) {
-
                 UsuarioController usuarioController = new UsuarioController();
                 DefaultTableModel tableModel = (DefaultTableModel) tblUsuarios.getModel();
 
@@ -361,9 +349,13 @@ public class Usuarios extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Error al obtener usuario");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Debes seleccionar un usuario");
+            JOptionPane.showMessageDialog(null, "Selecciona el usuario a editar");
         }
     }//GEN-LAST:event_lblEditarMouseClicked
+
+    private void lblBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblBuscarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
