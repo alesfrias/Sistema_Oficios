@@ -41,10 +41,13 @@ public class Usuarios extends javax.swing.JPanel {
             tableModel.addColumn("Departamento");
             tableModel.addColumn("RFC");
             tableModel.addColumn("Contraseña");
+            tableModel.addColumn("Tipo de Usuario");
+            
+            
 
             while (rs.next()) {
-                Object fila[] = new Object[5];
-                for (int i = 0; i < 5; i++) {
+                Object fila[] = new Object[6];
+                for (int i = 0; i < 6; i++) {
                     fila[i] = rs.getObject(i + 1);
                 }
 

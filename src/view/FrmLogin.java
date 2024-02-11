@@ -30,11 +30,19 @@ public class FrmLogin extends javax.swing.JFrame {
             usuarioModel.setUser_rfc(txtUser.getText().trim());
             usuarioModel.setUser_pwd(String.valueOf(txtPwd.getText().trim()));
             cleanLogin();
+            System.out.println("Privilegios -->" + usuarioModel.getUser_rol());
 
             if (usuarioController.userLogin(usuarioModel)) {
-                FrmAdmin menuAdmin = new FrmAdmin();
-                menuAdmin.setVisible(true);
-                this.dispose();
+                if (usuarioModel.getUser_rol().equals("Administrador")) {
+
+                    FrmAdmin menuAdmin = new FrmAdmin();
+                    menuAdmin.setVisible(true);
+                    this.dispose();
+                } else {
+                    FrmUser menuUser = new FrmUser();
+                    menuUser.setVisible(true);
+                    this.dispose();
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Credenciales de acceso incorrectas");
                 cleanLogin();
@@ -325,7 +333,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         //Efecto de opacida al mostrar el login
-        for(double i = 0.0; i <= 1.0; i = i + 0.1){
+        for (double i = 0.0; i <= 1.0; i = i + 0.1) {
             String val = i + "";
             float f = Float.parseFloat(val);
             this.setOpacity(f);
@@ -388,9 +396,9 @@ public class FrmLogin extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtPwd;
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
-private void cleanLogin(){
-    txtUser.setText("");
-    txtPwd.setText("");
-    txtUser.requestFocus();
-}
+private void cleanLogin() {
+        txtUser.setText("");
+        txtPwd.setText("");
+        txtUser.requestFocus();
+    }
 }

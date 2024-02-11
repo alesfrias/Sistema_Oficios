@@ -39,6 +39,7 @@ public class SetUsuarios extends javax.swing.JPanel {
                 txtNombre.setText(userUpdate.getUser_name());
                 txtRfc.setText(userUpdate.getUser_rfc());
                 txtContraseña.setText(userUpdate.getUser_pwd());
+                cmbRol.setSelectedItem(userUpdate.getUser_rol());
             }
         }
     }
@@ -97,6 +98,7 @@ public class SetUsuarios extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(0, 26, 90));
         jLabel2.setText("Departamento");
 
+        cmbArea.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione Departamento", "Departamento de informática", "Departamento de Planeación" }));
         cmbArea.setNextFocusableComponent(txtRfc);
         cmbArea.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -139,7 +141,7 @@ public class SetUsuarios extends javax.swing.JPanel {
         jLabel5.setForeground(new java.awt.Color(0, 26, 90));
         jLabel5.setText("Tipo de Usuario");
 
-        cmbRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un rol", "Administrador", "Normal" }));
+        cmbRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione el Tipo de Usuario", "Administrador", "Normal" }));
         cmbRol.setNextFocusableComponent(lblGuardar);
         cmbRol.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -194,7 +196,7 @@ public class SetUsuarios extends javax.swing.JPanel {
                     .addComponent(jLabel1)
                     .addComponent(lblHeader)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(67, 67, 67)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -287,7 +289,6 @@ public class SetUsuarios extends javax.swing.JPanel {
 
     private void lblGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGuardarMouseClicked
         GuardarUsuario();
-
     }//GEN-LAST:event_lblGuardarMouseClicked
 
     private void cmbRolKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmbRolKeyPressed
@@ -302,19 +303,18 @@ public class SetUsuarios extends javax.swing.JPanel {
     private void GuardarUsuario() {
         //Validar campos vacios
         if (txtNombre.getText().isEmpty() || txtRfc.getText().isEmpty()
-                || txtContraseña.getText().isEmpty()) {
+                || txtContraseña.getText().isEmpty() || cmbArea.getSelectedIndex() == 0
+                || cmbRol.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Es necesario ingresar todos los datos");
-            limpiarFormulario();
         } else {
             UsuarioController usuarioController = new UsuarioController();
             UsuarioModel usuario = upd ? userUpdate : new UsuarioModel();
             usuario.setUser_name(txtNombre.getText().trim());
-            usuario.setDepto_id(cmbArea.getName());
+            usuario.setDepto_id(cmbArea.getSelectedIndex());
             usuario.setUser_rfc(txtRfc.getText().trim());
             usuario.setUser_pwd(txtContraseña.getText().trim());
-            usuario.setUser_rol(cmbRol.getName());
+            usuario.setUser_rol(cmbRol.getSelectedItem().toString());
             if (!upd) {
-
                 if (usuarioController.addUser(usuario)) {
                     JOptionPane.showMessageDialog(null, "Usuario Guardado");
                     FrmAdmin.ShowJPanel(new Usuarios());
@@ -328,7 +328,6 @@ public class SetUsuarios extends javax.swing.JPanel {
                     FrmAdmin.ShowJPanel(new Usuarios());
 
                 } else {
-                    JOptionPane.showMessageDialog(null, "Error al actualizar usuario");
                     limpiarFormulario();
                 }
             }

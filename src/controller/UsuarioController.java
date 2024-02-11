@@ -16,7 +16,7 @@ public class UsuarioController {
         boolean respuesta = false;
 
         Connection conn = sql.Conexion.conectar();
-        String query = "SELECT user_rfc, user_pwd FROM usuario_sistema "
+        String query = "SELECT user_rfc, user_pwd, user_rol FROM usuario_sistema "
                 + "WHERE user_rfc = '" + usuario.getUser_rfc() + "' AND user_pwd = '" + usuario.getUser_pwd() + "' AND user_status = 1";
         Statement st;
 
@@ -90,7 +90,7 @@ public class UsuarioController {
             PreparedStatement query = conn.prepareStatement("INSERT INTO usuario_sistema VALUES(?,?,?,?,?,?,1,now())");
             query.setString(1, "0");
             query.setString(2, usuario.getUser_name());
-            query.setString(3, usuario.getDepto_id());
+            query.setInt(3, usuario.getDepto_id());
             query.setString(4, usuario.getUser_rfc());
             query.setString(5, usuario.getUser_pwd());
             query.setString(6, usuario.getUser_rol());
@@ -116,7 +116,7 @@ public class UsuarioController {
                     + "SET user_name = ?, depto_id = ?, user_rfc = ?, user_pwd = ?, user_rol = ? "
                     + "WHERE user_id = ?");
             query.setString(1, usuario.getUser_name());
-            query.setString(2, usuario.getDepto_id());
+            query.setInt(2, usuario.getDepto_id());
             query.setString(3, usuario.getUser_rfc());
             query.setString(4, usuario.getUser_pwd());
             query.setString(5, usuario.getUser_rol());

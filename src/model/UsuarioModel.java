@@ -12,7 +12,7 @@ public class UsuarioModel {
 
     private String user_id;
     private String user_name;
-    private String depto_id;
+    private int depto_id;
     private String user_rfc;
     private String user_pwd;
     private String user_rol;
@@ -22,7 +22,7 @@ public class UsuarioModel {
     public UsuarioModel() {
         this.user_id = "";
         this.user_name = "";
-        this.depto_id = "";
+        this.depto_id = 0;
         this.user_rfc = "";
         this.user_pwd = "";
         this.user_rol = "";
@@ -46,11 +46,11 @@ public class UsuarioModel {
         this.user_name = user_name;
     }
 
-    public String getDepto_id() {
+    public int getDepto_id() {
         return depto_id;
     }
 
-    public void setDepto_id(String depto_id) {
+    public void setDepto_id(int depto_id) {
         this.depto_id = depto_id;
     }
 
