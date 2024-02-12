@@ -26,6 +26,7 @@ public class Usuarios extends javax.swing.JPanel {
 
         Connection conn = Conexion.conectar();
         DefaultTableModel tableModel = new DefaultTableModel() {
+            //Evitar que las celdas sean editables
             @Override
             public boolean isCellEditable(int row, int column) {
                 //all cells false
