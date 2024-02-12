@@ -35,6 +35,7 @@ public class FrmAdmin extends javax.swing.JFrame {
         jPContent.repaint();
     }
 //Icono de formulario
+
     @Override
     public Image getIconImage() {
         Image iconImage = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("img/favicon.png"));
@@ -55,8 +56,8 @@ public class FrmAdmin extends javax.swing.JFrame {
         jPMenu = new javax.swing.JPanel();
         lblUpom = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        bckUsuarios = new javax.swing.JPanel();
-        lblUsuarios = new javax.swing.JLabel();
+        bckDeptos = new javax.swing.JPanel();
+        lblDeptos = new javax.swing.JLabel();
         bckArea = new javax.swing.JPanel();
         lblArea = new javax.swing.JLabel();
         bckOficios = new javax.swing.JPanel();
@@ -66,6 +67,8 @@ public class FrmAdmin extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         bckSalir = new javax.swing.JPanel();
         lblSalir = new javax.swing.JLabel();
+        bckUsuarios = new javax.swing.JPanel();
+        lblUsuarios = new javax.swing.JLabel();
         jPHeader = new javax.swing.JPanel();
         lblHeader = new javax.swing.JLabel();
         lblDate = new javax.swing.JLabel();
@@ -86,38 +89,38 @@ public class FrmAdmin extends javax.swing.JFrame {
         lblUpom.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblUpom.setText("UPOM");
 
-        bckUsuarios.setBackground(new java.awt.Color(0, 26, 90));
+        bckDeptos.setBackground(new java.awt.Color(0, 26, 90));
 
-        lblUsuarios.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        lblUsuarios.setForeground(new java.awt.Color(255, 255, 255));
-        lblUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/account-multiple.png"))); // NOI18N
-        lblUsuarios.setText("Usuarios");
-        lblUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblUsuarios.setIconTextGap(10);
-        lblUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblDeptos.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        lblDeptos.setForeground(new java.awt.Color(255, 255, 255));
+        lblDeptos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/home-outline.png"))); // NOI18N
+        lblDeptos.setText("Departamentos");
+        lblDeptos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblDeptos.setIconTextGap(10);
+        lblDeptos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblUsuariosMouseClicked(evt);
+                lblDeptosMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblUsuariosMouseEntered(evt);
+                lblDeptosMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblUsuariosMouseExited(evt);
+                lblDeptosMouseExited(evt);
             }
         });
 
-        javax.swing.GroupLayout bckUsuariosLayout = new javax.swing.GroupLayout(bckUsuarios);
-        bckUsuarios.setLayout(bckUsuariosLayout);
-        bckUsuariosLayout.setHorizontalGroup(
-            bckUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(bckUsuariosLayout.createSequentialGroup()
+        javax.swing.GroupLayout bckDeptosLayout = new javax.swing.GroupLayout(bckDeptos);
+        bckDeptos.setLayout(bckDeptosLayout);
+        bckDeptosLayout.setHorizontalGroup(
+            bckDeptosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bckDeptosLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(lblUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblDeptos, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        bckUsuariosLayout.setVerticalGroup(
-            bckUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+        bckDeptosLayout.setVerticalGroup(
+            bckDeptosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblDeptos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         bckArea.setBackground(new java.awt.Color(0, 26, 90));
@@ -259,11 +262,45 @@ public class FrmAdmin extends javax.swing.JFrame {
             .addComponent(lblSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        bckUsuarios.setBackground(new java.awt.Color(0, 26, 90));
+
+        lblUsuarios.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        lblUsuarios.setForeground(new java.awt.Color(255, 255, 255));
+        lblUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/account-multiple.png"))); // NOI18N
+        lblUsuarios.setText("Usuarios");
+        lblUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblUsuarios.setIconTextGap(10);
+        lblUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblUsuariosMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblUsuariosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblUsuariosMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout bckUsuariosLayout = new javax.swing.GroupLayout(bckUsuarios);
+        bckUsuarios.setLayout(bckUsuariosLayout);
+        bckUsuariosLayout.setHorizontalGroup(
+            bckUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bckUsuariosLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(lblUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        bckUsuariosLayout.setVerticalGroup(
+            bckUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
         javax.swing.GroupLayout jPMenuLayout = new javax.swing.GroupLayout(jPMenu);
         jPMenu.setLayout(jPMenuLayout);
         jPMenuLayout.setHorizontalGroup(
             jPMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bckUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(bckDeptos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(bckOficios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(bckReportes, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
             .addComponent(bckArea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -278,6 +315,7 @@ public class FrmAdmin extends javax.swing.JFrame {
                 .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(bckSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+            .addComponent(bckUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPMenuLayout.setVerticalGroup(
             jPMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,8 +324,10 @@ public class FrmAdmin extends javax.swing.JFrame {
                 .addComponent(lblUpom, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(111, 111, 111)
+                .addGap(49, 49, 49)
                 .addComponent(bckUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(bckDeptos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(bckOficios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -390,15 +430,15 @@ public class FrmAdmin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lblUsuariosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuariosMouseEntered
-        bckUsuarios.setBackground(Color.white);
-        lblUsuarios.setForeground(new Color(0, 26, 90));
-    }//GEN-LAST:event_lblUsuariosMouseEntered
+    private void lblDeptosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDeptosMouseEntered
+        bckDeptos.setBackground(Color.white);
+        lblDeptos.setForeground(new Color(0, 26, 90));
+    }//GEN-LAST:event_lblDeptosMouseEntered
 
-    private void lblUsuariosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuariosMouseExited
-        bckUsuarios.setBackground(new Color(0, 26, 90));
-        lblUsuarios.setForeground(Color.white);
-    }//GEN-LAST:event_lblUsuariosMouseExited
+    private void lblDeptosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDeptosMouseExited
+        bckDeptos.setBackground(new Color(0, 26, 90));
+        lblDeptos.setForeground(Color.white);
+    }//GEN-LAST:event_lblDeptosMouseExited
 
     private void lblAreaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAreaMouseEntered
         bckArea.setBackground(Color.white);
@@ -444,10 +484,23 @@ public class FrmAdmin extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_lblSalirMouseClicked
 
+    private void lblDeptosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDeptosMouseClicked
+        ShowJPanel(new Departamentos());
+    }//GEN-LAST:event_lblDeptosMouseClicked
+
     private void lblUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuariosMouseClicked
-        // TODO add your handling code here:
         ShowJPanel(new Usuarios());
     }//GEN-LAST:event_lblUsuariosMouseClicked
+
+    private void lblUsuariosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuariosMouseEntered
+         bckUsuarios.setBackground(Color.white);
+        lblUsuarios.setForeground(new Color(0, 26, 90));
+    }//GEN-LAST:event_lblUsuariosMouseEntered
+
+    private void lblUsuariosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuariosMouseExited
+         bckUsuarios.setBackground(new Color(0, 26, 90));
+        lblUsuarios.setForeground(Color.WHITE);
+    }//GEN-LAST:event_lblUsuariosMouseExited
 
     /**
      * @param args the command line arguments
@@ -486,6 +539,7 @@ public class FrmAdmin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bckArea;
+    private javax.swing.JPanel bckDeptos;
     private javax.swing.JPanel bckOficios;
     private javax.swing.JPanel bckReportes;
     private javax.swing.JPanel bckSalir;
@@ -498,6 +552,7 @@ public class FrmAdmin extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblArea;
     private javax.swing.JLabel lblDate;
+    private javax.swing.JLabel lblDeptos;
     private javax.swing.JLabel lblHeader;
     private javax.swing.JLabel lblOficios;
     private javax.swing.JLabel lblReportes;

@@ -15,47 +15,35 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import javax.swing.JTable;
 
-public class Usuarios extends javax.swing.JPanel {
+public class Departamentos extends javax.swing.JPanel {
 
-    public Usuarios() {
+    public Departamentos() {
         initComponents();
-        this.cargarTabla("");
+        this.cargarTabla();
     }
 
-    private void cargarTabla(String name) {
+    private void cargarTabla() {
 
         Connection conn = Conexion.conectar();
-        DefaultTableModel tableModel = new DefaultTableModel() {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                //all cells false
-                return false;
-            }
-        };
-        String query = name.isEmpty() ? "SELECT user_id, user_name, depto_id, user_rfc, user_pwd, user_rol FROM usuario_sistema WHERE user_status = 1"
-                : "SELECT user_id, user_name, depto_id, user_rfc, user_pwd, user_rol FROM usuario_sistema WHERE user_name LIKE '%" + name + "%' AND user_status = 1";
+        DefaultTableModel tableModel = new DefaultTableModel();
+        String query = "SELECT depto_id, depto_name FROM departamento WHERE depto_status = 1";
         Statement st;
 
         try {
 
             st = conn.createStatement();
             ResultSet rs = st.executeQuery(query);
-            Usuarios.tblUsuarios = new JTable(tableModel);
-            Usuarios.tblScroll.setViewportView(Usuarios.tblUsuarios);
+            Departamentos.tblDeptos = new JTable(tableModel);
+            Departamentos.tblScroll.setViewportView(Departamentos.tblDeptos);
 
             tableModel.addColumn("ID");
             tableModel.addColumn("Nombre");
-            tableModel.addColumn("Departamento");
-            tableModel.addColumn("RFC");
-            tableModel.addColumn("Contraseña");
-            tableModel.addColumn("Tipo de Usuario");
 
             while (rs.next()) {
-                Object fila[] = new Object[6];
-                for (int i = 0; i < 6; i++) {
+                Object fila[] = new Object[2];
+                for (int i = 0; i < 2; i++) {
                     fila[i] = rs.getObject(i + 1);
                 }
-
                 tableModel.addRow(fila);
             }
             conn.close();
@@ -74,7 +62,7 @@ public class Usuarios extends javax.swing.JPanel {
         bckBuscar = new javax.swing.JPanel();
         lblBuscar = new javax.swing.JLabel();
         tblScroll = new javax.swing.JScrollPane();
-        tblUsuarios = new javax.swing.JTable();
+        tblDeptos = new javax.swing.JTable();
         bckBorrar = new javax.swing.JPanel();
         lblBorrar = new javax.swing.JLabel();
         bckEditar = new javax.swing.JPanel();
@@ -90,15 +78,10 @@ public class Usuarios extends javax.swing.JPanel {
 
         lblHeader.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         lblHeader.setForeground(new java.awt.Color(0, 26, 90));
-        lblHeader.setText("Usuarios del Sistema");
+        lblHeader.setText("Departamentos");
 
         txtBuscar.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txtBuscar.setForeground(new java.awt.Color(0, 26, 90));
-        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtBuscarKeyPressed(evt);
-            }
-        });
 
         bckBuscar.setBackground(new java.awt.Color(0, 26, 90));
 
@@ -129,19 +112,31 @@ public class Usuarios extends javax.swing.JPanel {
             .addComponent(lblBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        tblUsuarios.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        tblUsuarios.setForeground(new java.awt.Color(0, 26, 90));
-        tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+        tblDeptos.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        tblDeptos.setForeground(new java.awt.Color(0, 26, 90));
+        tblDeptos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-
+                "ID", "Departamento"
             }
-        ));
-        tblUsuarios.setRowHeight(40);
-        tblUsuarios.getTableHeader().setReorderingAllowed(false);
-        tblScroll.setViewportView(tblUsuarios);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblDeptos.setRowHeight(40);
+        tblDeptos.getTableHeader().setReorderingAllowed(false);
+        tblScroll.setViewportView(tblDeptos);
+        if (tblDeptos.getColumnModel().getColumnCount() > 0) {
+            tblDeptos.getColumnModel().getColumn(0).setResizable(false);
+            tblDeptos.getColumnModel().getColumn(1).setResizable(false);
+        }
 
         bckBorrar.setBackground(new java.awt.Color(0, 26, 90));
 
@@ -330,17 +325,17 @@ public class Usuarios extends javax.swing.JPanel {
 
     private void lblBorrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBorrarMouseClicked
 //        ImageIcon icono = new ImageIcon("src\\img\\alert.png");
-        if (tblUsuarios.getSelectedRow() > -1) {
+        if (tblDeptos.getSelectedRow() > -1) {
 
             int borrar = JOptionPane.showConfirmDialog(null, "¿Deseas continuar con la eliminación?", "ELIMINAR USUARIO", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE/*, icono*/);
 
             if (borrar == 0) {
                 UsuarioController usuarioController = new UsuarioController();
-                DefaultTableModel tableModel = (DefaultTableModel) tblUsuarios.getModel();
+                DefaultTableModel tableModel = (DefaultTableModel) tblDeptos.getModel();
 
-                for (int i : tblUsuarios.getSelectedRows()) {
+                for (int i : tblDeptos.getSelectedRows()) {
                     try {
-                        usuarioController.delUser((int) tblUsuarios.getValueAt(i, 0));
+                        usuarioController.delUser((int) tblDeptos.getValueAt(i, 0));
                         tableModel.removeRow(i);
                     } catch (Exception e) {
                         JOptionPane.showMessageDialog(null, "Error al eliminar usuario" + e);
@@ -354,9 +349,9 @@ public class Usuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_lblBorrarMouseClicked
 
     private void lblEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMouseClicked
-        if (tblUsuarios.getSelectedRow() > -1) {
+        if (tblDeptos.getSelectedRow() > -1) {
             try {
-                int userId = (int) tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(), 0);
+                int userId = (int) tblDeptos.getValueAt(tblDeptos.getSelectedRow(), 0);
                 UsuarioController usuarioController = new UsuarioController();
                 FrmAdmin.ShowJPanel(new SetUsuarios(usuarioController.getUserById(userId)));
             } catch (Exception e) {
@@ -368,14 +363,8 @@ public class Usuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_lblEditarMouseClicked
 
     private void lblBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarMouseClicked
-        String searchUser = txtBuscar.getText();
-        cargarTabla(searchUser);
+        // TODO add your handling code here:
     }//GEN-LAST:event_lblBuscarMouseClicked
-
-    private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
-        String searchUser = txtBuscar.getText();
-        cargarTabla(searchUser);
-    }//GEN-LAST:event_txtBuscarKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -389,8 +378,8 @@ public class Usuarios extends javax.swing.JPanel {
     private javax.swing.JLabel lblEditar;
     private javax.swing.JLabel lblHeader;
     private javax.swing.JLabel lblNuevo;
+    public static javax.swing.JTable tblDeptos;
     public static javax.swing.JScrollPane tblScroll;
-    public static javax.swing.JTable tblUsuarios;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

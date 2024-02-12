@@ -28,26 +28,18 @@ public class FrmLogin extends javax.swing.JFrame {
             UsuarioController usuarioController = new UsuarioController();
             UsuarioModel usuarioModel = new UsuarioModel();
             usuarioModel.setUser_rfc(txtUser.getText().trim());
-            usuarioModel.setUser_pwd(String.valueOf(txtPwd.getText().trim()));
+            usuarioModel.setUser_pwd(txtPwd.getText().trim());
             cleanLogin();
             System.out.println("Privilegios -->" + usuarioModel.getUser_rol());
 
             if (usuarioController.userLogin(usuarioModel)) {
-                if (usuarioModel.getUser_rol().equals("Administrador")) {
-
                     FrmAdmin menuAdmin = new FrmAdmin();
                     menuAdmin.setVisible(true);
                     this.dispose();
-                } else {
-                    FrmUser menuUser = new FrmUser();
-                    menuUser.setVisible(true);
-                    this.dispose();
-                }
             } else {
                 JOptionPane.showMessageDialog(null, "Credenciales de acceso incorrectas");
                 cleanLogin();
             }
-
         } else {
             JOptionPane.showMessageDialog(null, "Ingrese los datos requeridos");
             cleanLogin();
@@ -278,41 +270,34 @@ public class FrmLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLoginMouseEntered
-        // TODO add your handling code here:
         bckLogin.setBackground(new Color(0, 80, 196));
     }//GEN-LAST:event_lblLoginMouseEntered
 
     private void lblLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLoginMouseExited
-        // TODO add your handling code here:
         bckLogin.setBackground(new Color(0, 26, 90));
     }//GEN-LAST:event_lblLoginMouseExited
 
     private void lblCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseClicked
-        // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_lblCloseMouseClicked
 
     private void lblCloseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseEntered
-        // TODO add your handling code here:
         backClose.setBackground(new Color(0, 26, 90));
         lblClose.setForeground(Color.WHITE);
     }//GEN-LAST:event_lblCloseMouseEntered
 
     private void lblCloseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseExited
-        // TODO add your handling code here:
         backClose.setBackground(Color.WHITE);
         lblClose.setForeground(new Color(0, 26, 90));
     }//GEN-LAST:event_lblCloseMouseExited
 
     private void txtUserKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserKeyPressed
-        // TODO add your handling code here:
         if (evt.getKeyCode() == evt.VK_ENTER) {
             txtPwd.requestFocus();
         }
     }//GEN-LAST:event_txtUserKeyPressed
 
     private void txtPwdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPwdKeyPressed
-        // TODO add your handling code here:
         if (evt.getKeyCode() == evt.VK_ENTER) {
             Login();
         }

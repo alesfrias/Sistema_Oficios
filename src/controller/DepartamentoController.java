@@ -19,7 +19,6 @@ public class DepartamentoController {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null,"Error al obtener los departamentos de la base de datos" + e);
         }
-        
     return departamento;
     }
 }
