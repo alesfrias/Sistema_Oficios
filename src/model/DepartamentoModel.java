@@ -2,23 +2,23 @@ package model;
 
 public class DepartamentoModel {
 
-    private String depto_id;
+    private int depto_id;
     private String depto_name;
     private String depto_status;
     private String depto_create;
 
     public DepartamentoModel() {
-        this.depto_id = "";
+        this.depto_id = 0;
         this.depto_name = "";
         this.depto_status = "";
         this.depto_create = "";
     }
 
-    public String getDepto_id() {
+    public int getDepto_id() {
         return depto_id;
     }
 
-    public void setDepto_id(String depto_id) {
+    public void setDepto_id(int depto_id) {
         this.depto_id = depto_id;
     }
 

@@ -1,19 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package view;
 
-import controller.UsuarioController;
-import java.sql.Statement;
-import java.sql.Connection;
+import controller.DepartamentoController;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
-import sql.Conexion;
 import javax.swing.JOptionPane;
-import java.sql.SQLException;
-import java.sql.ResultSet;
-import javax.swing.JTable;
 
 public class Departamentos extends javax.swing.JPanel {
 
@@ -24,31 +14,16 @@ public class Departamentos extends javax.swing.JPanel {
 
     private void cargarTabla() {
 
-        Connection conn = Conexion.conectar();
-        DefaultTableModel tableModel = new DefaultTableModel();
-        String query = "SELECT depto_id, depto_name FROM departamento WHERE depto_status = 1";
-        Statement st;
-
         try {
+            DepartamentoController departamentoController = new DepartamentoController();
+            DefaultTableModel tableModel = (DefaultTableModel) tblDeptos.getModel();
+            departamentoController.getDeptos().forEach((departamento) -> tableModel.addRow(new Object[]{
+                departamento.getDepto_id(), departamento.getDepto_name()}));
 
-            st = conn.createStatement();
-            ResultSet rs = st.executeQuery(query);
-            Departamentos.tblDeptos = new JTable(tableModel);
-            Departamentos.tblScroll.setViewportView(Departamentos.tblDeptos);
+        } catch (Exception e) {
 
-            tableModel.addColumn("ID");
-            tableModel.addColumn("Nombre");
+            JOptionPane.showMessageDialog(null, "Error al llenar la tabla de departamentos" + e);
 
-            while (rs.next()) {
-                Object fila[] = new Object[2];
-                for (int i = 0; i < 2; i++) {
-                    fila[i] = rs.getObject(i + 1);
-                }
-                tableModel.addRow(fila);
-            }
-            conn.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al llenar la tabla de usuarios " + e);
         }
     }
 
@@ -320,45 +295,45 @@ public class Departamentos extends javax.swing.JPanel {
     }//GEN-LAST:event_lblNuevoMouseExited
 
     private void lblNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNuevoMouseClicked
-        FrmAdmin.ShowJPanel(new SetUsuarios());
+        FrmAdmin.ShowJPanel(new SetDepartamento());
     }//GEN-LAST:event_lblNuevoMouseClicked
 
     private void lblBorrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBorrarMouseClicked
-//        ImageIcon icono = new ImageIcon("src\\img\\alert.png");
         if (tblDeptos.getSelectedRow() > -1) {
 
-            int borrar = JOptionPane.showConfirmDialog(null, "¿Deseas continuar con la eliminación?", "ELIMINAR USUARIO", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE/*, icono*/);
+            int borrar = JOptionPane.showConfirmDialog(null, "¿Realmente deseas eliminar el registro?", "ELIMINAR DEPARTAMENTO", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE/*, icono*/);
 
             if (borrar == 0) {
-                UsuarioController usuarioController = new UsuarioController();
+
+                DepartamentoController deptoController = new DepartamentoController();
                 DefaultTableModel tableModel = (DefaultTableModel) tblDeptos.getModel();
 
                 for (int i : tblDeptos.getSelectedRows()) {
                     try {
-                        usuarioController.delUser((int) tblDeptos.getValueAt(i, 0));
+                        deptoController.delDepto((int) tblDeptos.getValueAt(i, 0));
                         tableModel.removeRow(i);
+
                     } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, "Error al eliminar usuario" + e);
+                        JOptionPane.showMessageDialog(null, "Error al eliminar departamento: " + e);
                     }
                 }
             }
         } else {
-
-            JOptionPane.showMessageDialog(null, "Debes seleccionar un usuario");
+            JOptionPane.showMessageDialog(null, "Selecciona el departamento a eliminar");
         }
     }//GEN-LAST:event_lblBorrarMouseClicked
 
     private void lblEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMouseClicked
         if (tblDeptos.getSelectedRow() > -1) {
             try {
-                int userId = (int) tblDeptos.getValueAt(tblDeptos.getSelectedRow(), 0);
-                UsuarioController usuarioController = new UsuarioController();
-                FrmAdmin.ShowJPanel(new SetUsuarios(usuarioController.getUserById(userId)));
+                int deptoId = (int) tblDeptos.getValueAt(tblDeptos.getSelectedRow(), 0);
+                DepartamentoController deptoController = new DepartamentoController();
+                FrmAdmin.ShowJPanel(new SetDepartamento(deptoController.getDeptoById(deptoId)));
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error al obtener usuario");
+                JOptionPane.showMessageDialog(null, "Error al seleccionar el departamento");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Selecciona el usuario a editar");
+            JOptionPane.showMessageDialog(null, "Selecciona el departamento a editar");
         }
     }//GEN-LAST:event_lblEditarMouseClicked
 

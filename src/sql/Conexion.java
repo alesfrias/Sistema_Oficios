@@ -21,4 +21,12 @@ public class Conexion {
         }
         return null;
     }
+    
+    public void Cerrar()throws SQLException{
+        if(Conexion.conectar() != null){
+            if(!Conexion.conectar().isClosed()){
+                Conexion.conectar().close();
+            }
+        }
+    }
 }
