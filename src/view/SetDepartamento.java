@@ -32,8 +32,8 @@ public class SetDepartamento extends javax.swing.JPanel {
 
     private void initUpdate() {
         if (upd) {
-            lblHeader.setText("Editar Departamento");
-            lblGuardar.setText("Actualizar Departamento");
+            lblHeader.setText("Editar Jefatura");
+            lblGuardar.setText("Actualizar Jefatura");
 
             if (deptoUpdate != null) {
                 txtNombre.setText(deptoUpdate.getDepto_name());
@@ -63,11 +63,11 @@ public class SetDepartamento extends javax.swing.JPanel {
 
         lblHeader.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         lblHeader.setForeground(new java.awt.Color(0, 26, 90));
-        lblHeader.setText("Alta de Departamento");
+        lblHeader.setText("Alta de Jefatura");
 
         jLabel1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 26, 90));
-        jLabel1.setText("Nombre del Departamento");
+        jLabel1.setText("Nombre de la Jefatura");
 
         txtNombre.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txtNombre.setForeground(new java.awt.Color(0, 26, 90));
@@ -153,7 +153,6 @@ public class SetDepartamento extends javax.swing.JPanel {
     }//GEN-LAST:event_lblGuardarMouseEntered
 
     private void lblGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGuardarMouseExited
-        // TODO add your handling code here:
         bckGuardar.setBackground(new Color(0, 26, 90));
 
     }//GEN-LAST:event_lblGuardarMouseExited
@@ -184,7 +183,7 @@ public class SetDepartamento extends javax.swing.JPanel {
         String deptoName = txtNombre.getText();
 
         if (deptoName.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Es necesario ingresar el nombre del departamento");
+            JOptionPane.showMessageDialog(null, "Es necesario ingresar el nombre de la jefatura");
             return;
         }
 
@@ -198,13 +197,13 @@ public class SetDepartamento extends javax.swing.JPanel {
             } else {
                 deptoController.updDepto(departamento);
             }
-            String successMsg = upd ? "actualizado" : "registrado";
-            JOptionPane.showMessageDialog(null, "Departamento " + successMsg + " correctamente ");
+            String successMsg = upd ? "actualizada" : "registrada";
+            JOptionPane.showMessageDialog(null, "Jefatura " + successMsg + " correctamente ");
             FrmAdmin.ShowJPanel(new Departamentos());
 
         } catch (Exception e) {
             String errorMsg = upd ? "editar" : "registrar";
-            JOptionPane.showMessageDialog(null, "Error al " + errorMsg + " el usuario: " + e);
+            JOptionPane.showMessageDialog(null, "Error al " + errorMsg + " la jefatura: " + e);
         }
 
     }

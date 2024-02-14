@@ -94,7 +94,7 @@ public class FrmAdmin extends javax.swing.JFrame {
         lblDeptos.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         lblDeptos.setForeground(new java.awt.Color(255, 255, 255));
         lblDeptos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/home-outline.png"))); // NOI18N
-        lblDeptos.setText("Departamentos");
+        lblDeptos.setText("Jefaturas");
         lblDeptos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblDeptos.setIconTextGap(10);
         lblDeptos.addMouseListener(new java.awt.event.MouseAdapter() {

@@ -35,7 +35,7 @@ public class DepartamentoController {
             rs.close();
             st.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al obtener departamentos de la base de datos: " + e);
+            JOptionPane.showMessageDialog(null, "Error al obtener las jefaturas de la base de datos: " + e);
         } finally {
 
         }
@@ -59,7 +59,7 @@ public class DepartamentoController {
             st.close();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al obtener departamento de la base de datos: " + e);
+            JOptionPane.showMessageDialog(null, "Error al obtener las jefaturas de la base de datos: " + e);
         }
         return depto;
     }
@@ -73,7 +73,9 @@ public class DepartamentoController {
             st.executeUpdate();
             st.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar el departamento en la base de datos: " + e);
+            JOptionPane.showMessageDialog(null, "Error al guardar la jefatura en la base de datos: " + e);
+        } finally {
+            Conexion.conectar().close();
         }
     }
 
@@ -86,7 +88,9 @@ public class DepartamentoController {
             st.executeUpdate();
             st.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar el departamento en la base de datos: " + e);
+            JOptionPane.showMessageDialog(null, "Error al actualizar la jefatura en la base de datos: " + e);
+        } finally {
+            Conexion.conectar().close();
         }
     }
 
@@ -100,9 +104,9 @@ public class DepartamentoController {
             System.out.println("Query --> " + st);
             st.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al eliminar en la base de datos: " + e);
+            JOptionPane.showMessageDialog(null, "Error al eliminar la jefatura en la base de datos: " + e);
         } finally {
-
+            Conexion.conectar().close();
         }
     }
 }

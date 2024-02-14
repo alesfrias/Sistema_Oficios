@@ -22,7 +22,7 @@ public class Departamentos extends javax.swing.JPanel {
 
         } catch (Exception e) {
 
-            JOptionPane.showMessageDialog(null, "Error al llenar la tabla de departamentos" + e);
+            JOptionPane.showMessageDialog(null, "Error al llenar la tabla de jefaturas" + e);
 
         }
     }
@@ -53,7 +53,7 @@ public class Departamentos extends javax.swing.JPanel {
 
         lblHeader.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         lblHeader.setForeground(new java.awt.Color(0, 26, 90));
-        lblHeader.setText("Departamentos");
+        lblHeader.setText("Jefaturas");
 
         txtBuscar.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txtBuscar.setForeground(new java.awt.Color(0, 26, 90));
@@ -94,7 +94,7 @@ public class Departamentos extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Departamento"
+                "ID", "JEFATURA"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -301,7 +301,7 @@ public class Departamentos extends javax.swing.JPanel {
     private void lblBorrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBorrarMouseClicked
         if (tblDeptos.getSelectedRow() > -1) {
 
-            int borrar = JOptionPane.showConfirmDialog(null, "¿Realmente deseas eliminar el registro?", "ELIMINAR DEPARTAMENTO", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE/*, icono*/);
+            int borrar = JOptionPane.showConfirmDialog(null, "¿Realmente deseas eliminar el registro?", "ELIMINAR JEFATURA", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE/*, icono*/);
 
             if (borrar == 0) {
 
@@ -314,12 +314,12 @@ public class Departamentos extends javax.swing.JPanel {
                         tableModel.removeRow(i);
 
                     } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, "Error al eliminar departamento: " + e);
+                        JOptionPane.showMessageDialog(null, "Error al eliminar jefatura: " + e);
                     }
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Selecciona el departamento a eliminar");
+            JOptionPane.showMessageDialog(null, "Selecciona la jefatura a eliminar");
         }
     }//GEN-LAST:event_lblBorrarMouseClicked
 
@@ -330,10 +330,10 @@ public class Departamentos extends javax.swing.JPanel {
                 DepartamentoController deptoController = new DepartamentoController();
                 FrmAdmin.ShowJPanel(new SetDepartamento(deptoController.getDeptoById(deptoId)));
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error al seleccionar el departamento");
+                JOptionPane.showMessageDialog(null, "Error al seleccionar la jefatura");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Selecciona el departamento a editar");
+            JOptionPane.showMessageDialog(null, "Selecciona la jefatura a editar");
         }
     }//GEN-LAST:event_lblEditarMouseClicked
 
