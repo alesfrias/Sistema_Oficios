@@ -5,10 +5,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Ing. Alex Espejel
- */
 public class Conexion {
 
     public static Connection conectar() {
@@ -20,13 +16,5 @@ public class Conexion {
             JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos " + e);
         }
         return null;
-    }
-    
-    public void Cerrar()throws SQLException{
-        if(Conexion.conectar() != null){
-            if(!Conexion.conectar().isClosed()){
-                Conexion.conectar().close();
-            }
-        }
     }
 }

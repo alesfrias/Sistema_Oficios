@@ -17,13 +17,11 @@ public class Departamentos extends javax.swing.JPanel {
         try {
             DepartamentoController departamentoController = new DepartamentoController();
             DefaultTableModel tableModel = (DefaultTableModel) tblDeptos.getModel();
-            departamentoController.getDeptos().forEach((departamento) -> tableModel.addRow(new Object[]{
+            departamentoController.getDeptos("").forEach((departamento) -> tableModel.addRow(new Object[]{
                 departamento.getDepto_id(), departamento.getDepto_name()}));
 
         } catch (Exception e) {
-
             JOptionPane.showMessageDialog(null, "Error al llenar la tabla de jefaturas" + e);
-
         }
     }
 
@@ -57,6 +55,11 @@ public class Departamentos extends javax.swing.JPanel {
 
         txtBuscar.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txtBuscar.setForeground(new java.awt.Color(0, 26, 90));
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyPressed(evt);
+            }
+        });
 
         bckBuscar.setBackground(new java.awt.Color(0, 26, 90));
 
@@ -338,10 +341,25 @@ public class Departamentos extends javax.swing.JPanel {
     }//GEN-LAST:event_lblEditarMouseClicked
 
     private void lblBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarMouseClicked
-        // TODO add your handling code here:
+       Buscar();
     }//GEN-LAST:event_lblBuscarMouseClicked
 
+    private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
+        Buscar();
+    }//GEN-LAST:event_txtBuscarKeyPressed
 
+    private void Buscar(){
+        String jefatura = txtBuscar.getText();
+        
+        try {
+            DepartamentoController deptoController = new DepartamentoController();
+            DefaultTableModel tableModel = (DefaultTableModel) tblDeptos.getModel();
+            tableModel.setRowCount(0);
+            deptoController.getDeptos(jefatura).forEach((depto) -> tableModel.addRow(new Object[]{depto.getDepto_id(), depto.getDepto_name()}));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al buscar la jefatura");
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bckBorrar;
     private javax.swing.JPanel bckBuscar;

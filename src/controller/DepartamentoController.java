@@ -13,14 +13,13 @@ import sql.Conexion;
 public class DepartamentoController {
 
     //Obtener Departamentos
-    public List<DepartamentoModel> getDeptos() throws Exception {
-//    public List<DepartamentoModel> getDeptos(String depto) throws Exception {
+    public List<DepartamentoModel> getDeptos(String depto) throws Exception {
+
         List<DepartamentoModel> list = null;
         try {
             Connection conn = Conexion.conectar();
-            String query = "SELECT depto_id, depto_name FROM departamento WHERE depto_status = 1";
-//            String query = depto.isEmpty() ? "SELECT depto_id, depto_name FROM departamento WHERE depto_status = 1"
-//                    : "SELECT depto_id, depto_name WHERE depto_name LIKE '%" + depto + "%' AND depto_status = 1";
+            String query = depto.isEmpty() ? "SELECT depto_id, depto_name FROM departamento WHERE depto_status = 1"
+                    : "SELECT depto_id, depto_name FROM departamento WHERE depto_name LIKE '%" + depto + "%' AND depto_status = 1";
 
             PreparedStatement st = conn.prepareStatement(query);
             list = new ArrayList();
@@ -37,7 +36,7 @@ public class DepartamentoController {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al obtener las jefaturas de la base de datos: " + e);
         } finally {
-
+            Conexion.conectar().close();
         }
         return list;
     }
