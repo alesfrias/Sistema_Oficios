@@ -1,67 +1,29 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package view;
 
 import controller.UsuarioController;
-import java.sql.Statement;
-import java.sql.Connection;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
-import sql.Conexion;
 import javax.swing.JOptionPane;
-import java.sql.SQLException;
-import java.sql.ResultSet;
-import javax.swing.JTable;
 
 public class Usuarios extends javax.swing.JPanel {
 
     public Usuarios() {
         initComponents();
-        this.cargarTabla("");
+        this.cargarTabla();
     }
 
-    private void cargarTabla(String name) {
-
-        Connection conn = Conexion.conectar();
-        DefaultTableModel tableModel = new DefaultTableModel() {
-            //Evitar que las celdas sean editables
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                //all cells false
-                return false;
-            }
-        };
-        String query = name.isEmpty() ? "SELECT user_id, user_name, depto_id, user_rfc, user_pwd, user_rol FROM usuario_sistema WHERE user_status = 1"
-                : "SELECT user_id, user_name, depto_id, user_rfc, user_pwd, user_rol FROM usuario_sistema WHERE user_name LIKE '%" + name + "%' AND user_status = 1";
-        Statement st;
+    private void cargarTabla() {
 
         try {
+            UsuarioController usuarioController = new UsuarioController();
+            DefaultTableModel tableModel = (DefaultTableModel) tblUsuarios.getModel();
+            usuarioController.getUsers("").forEach((usuario) -> tableModel.addRow(new Object[]{
+                usuario.getUser_id(), usuario.getUser_name(), usuario.getDepto_id(), usuario.getUser_rfc(),
+                usuario.getUser_pwd(), usuario.getUser_rol()}));
 
-            st = conn.createStatement();
-            ResultSet rs = st.executeQuery(query);
-            Usuarios.tblUsuarios = new JTable(tableModel);
-            Usuarios.tblScroll.setViewportView(Usuarios.tblUsuarios);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al llenar la tabla de usuarios" + e);
 
-            tableModel.addColumn("ID");
-            tableModel.addColumn("Nombre");
-            tableModel.addColumn("Departamento");
-            tableModel.addColumn("RFC");
-            tableModel.addColumn("Contraseña");
-            tableModel.addColumn("Tipo de Usuario");
-
-            while (rs.next()) {
-                Object fila[] = new Object[6];
-                for (int i = 0; i < 6; i++) {
-                    fila[i] = rs.getObject(i + 1);
-                }
-
-                tableModel.addRow(fila);
-            }
-            conn.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al llenar la tabla de usuarios " + e);
         }
     }
 
@@ -137,12 +99,28 @@ public class Usuarios extends javax.swing.JPanel {
 
             },
             new String [] {
-
+                "ID", "NOMBRE", "JEFATURA", "RFC", "CONTRASEÑA", "TIPO DE USUARIO"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblUsuarios.setRowHeight(40);
         tblUsuarios.getTableHeader().setReorderingAllowed(false);
         tblScroll.setViewportView(tblUsuarios);
+        if (tblUsuarios.getColumnModel().getColumnCount() > 0) {
+            tblUsuarios.getColumnModel().getColumn(0).setResizable(false);
+            tblUsuarios.getColumnModel().getColumn(1).setResizable(false);
+            tblUsuarios.getColumnModel().getColumn(2).setResizable(false);
+            tblUsuarios.getColumnModel().getColumn(3).setResizable(false);
+            tblUsuarios.getColumnModel().getColumn(4).setResizable(false);
+            tblUsuarios.getColumnModel().getColumn(5).setResizable(false);
+        }
 
         bckBorrar.setBackground(new java.awt.Color(0, 26, 90));
 
@@ -333,7 +311,7 @@ public class Usuarios extends javax.swing.JPanel {
 //        ImageIcon icono = new ImageIcon("src\\img\\alert.png");
         if (tblUsuarios.getSelectedRow() > -1) {
 
-            int borrar = JOptionPane.showConfirmDialog(null, "¿Deseas continuar con la eliminación?", "ELIMINAR USUARIO", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE/*, icono*/);
+            int borrar = JOptionPane.showConfirmDialog(null, "¿Deseas borrar el registro?", "ELIMINAR USUARIO", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE/*, icono*/);
 
             if (borrar == 0) {
                 UsuarioController usuarioController = new UsuarioController();
@@ -350,7 +328,7 @@ public class Usuarios extends javax.swing.JPanel {
             }
         } else {
 
-            JOptionPane.showMessageDialog(null, "Debes seleccionar un usuario");
+            JOptionPane.showMessageDialog(null, "Selecciona el usuario a eliminar");
         }
     }//GEN-LAST:event_lblBorrarMouseClicked
 
@@ -369,15 +347,27 @@ public class Usuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_lblEditarMouseClicked
 
     private void lblBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarMouseClicked
-        String searchUser = txtBuscar.getText();
-        cargarTabla(searchUser);
+        Buscar();
     }//GEN-LAST:event_lblBuscarMouseClicked
 
     private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
-        String searchUser = txtBuscar.getText();
-        cargarTabla(searchUser);
+        Buscar();
     }//GEN-LAST:event_txtBuscarKeyPressed
 
+    private void Buscar() {
+        String usuario = txtBuscar.getText();
+
+        try {
+            UsuarioController userController = new UsuarioController();
+            DefaultTableModel tableModel = (DefaultTableModel) tblUsuarios.getModel();
+            tableModel.setRowCount(0);
+            userController.getUsers(usuario).forEach((user) -> tableModel.addRow(new Object[]{
+                user.getUser_id(), user.getUser_name(), user.getDepto_id(), user.getUser_rfc(),
+                user.getUser_pwd(), user.getUser_rol()}));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al buscar el usuario");
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bckBorrar;

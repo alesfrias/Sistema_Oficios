@@ -9,15 +9,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import javax.swing.JPanel;
 
-/**
- *
- * @author alex
- */
 public class FrmAdmin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FrmAdmin
-     */
     public FrmAdmin() {
         initComponents();
         setDate();
@@ -34,8 +27,8 @@ public class FrmAdmin extends javax.swing.JFrame {
         jPContent.revalidate();
         jPContent.repaint();
     }
-//Icono de formulario
 
+//Icono de formulario
     @Override
     public Image getIconImage() {
         Image iconImage = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("img/favicon.png"));
@@ -396,7 +389,7 @@ public class FrmAdmin extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPBackLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblDate, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addGap(14, 14, 14))))
         );
         jPBackLayout.setVerticalGroup(
             jPBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -493,12 +486,12 @@ public class FrmAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_lblUsuariosMouseClicked
 
     private void lblUsuariosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuariosMouseEntered
-         bckUsuarios.setBackground(Color.white);
+        bckUsuarios.setBackground(Color.white);
         lblUsuarios.setForeground(new Color(0, 26, 90));
     }//GEN-LAST:event_lblUsuariosMouseEntered
 
     private void lblUsuariosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuariosMouseExited
-         bckUsuarios.setBackground(new Color(0, 26, 90));
+        bckUsuarios.setBackground(new Color(0, 26, 90));
         lblUsuarios.setForeground(Color.WHITE);
     }//GEN-LAST:event_lblUsuariosMouseExited
 

@@ -5,10 +5,6 @@ import java.awt.Color;
 import javax.swing.JOptionPane;
 import model.DepartamentoModel;
 
-/**
- *
- * @author Ing. Alex Espejel
- */
 public class SetDepartamento extends javax.swing.JPanel {
 
     boolean upd = false;
@@ -51,6 +47,8 @@ public class SetDepartamento extends javax.swing.JPanel {
         bckGuardar = new javax.swing.JPanel();
         lblGuardar = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        bckCancelar = new javax.swing.JPanel();
+        lblCancelar = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(995, 559));
@@ -106,7 +104,9 @@ public class SetDepartamento extends javax.swing.JPanel {
         bckGuardar.setLayout(bckGuardarLayout);
         bckGuardarLayout.setHorizontalGroup(
             bckGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(bckGuardarLayout.createSequentialGroup()
+                .addComponent(lblGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         bckGuardarLayout.setVerticalGroup(
             bckGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,17 +115,61 @@ public class SetDepartamento extends javax.swing.JPanel {
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
+        bckCancelar.setBackground(new java.awt.Color(255, 0, 0));
+        bckCancelar.setPreferredSize(new java.awt.Dimension(350, 40));
+
+        lblCancelar.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        lblCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        lblCancelar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCancelar.setText("Cancelar");
+        lblCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCancelarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblCancelarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblCancelarMouseExited(evt);
+            }
+        });
+        lblCancelar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                lblCancelarKeyPressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout bckCancelarLayout = new javax.swing.GroupLayout(bckCancelar);
+        bckCancelar.setLayout(bckCancelarLayout);
+        bckCancelarLayout.setHorizontalGroup(
+            bckCancelarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bckCancelarLayout.createSequentialGroup()
+                .addComponent(lblCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        bckCancelarLayout.setVerticalGroup(
+            bckCancelarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(lblHeader)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bckGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(lblHeader)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(bckCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bckGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(506, 506, 506))
@@ -143,7 +187,9 @@ public class SetDepartamento extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(55, 55, 55)
-                        .addComponent(bckGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bckGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bckCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -176,6 +222,23 @@ public class SetDepartamento extends javax.swing.JPanel {
             GuardarDepto();
         }
     }//GEN-LAST:event_lblGuardarKeyPressed
+
+    private void lblCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCancelarMouseClicked
+        // TODO add your handling code here:
+        FrmAdmin.ShowJPanel(new Departamentos());
+    }//GEN-LAST:event_lblCancelarMouseClicked
+
+    private void lblCancelarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCancelarMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblCancelarMouseEntered
+
+    private void lblCancelarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCancelarMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblCancelarMouseExited
+
+    private void lblCancelarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lblCancelarKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblCancelarKeyPressed
 //    Método para guardar y Actualizar Usuario
 
     private void GuardarDepto() {
@@ -208,9 +271,11 @@ public class SetDepartamento extends javax.swing.JPanel {
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel bckCancelar;
     private javax.swing.JPanel bckGuardar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblCancelar;
     private javax.swing.JLabel lblGuardar;
     private javax.swing.JLabel lblHeader;
     private javax.swing.JTextField txtNombre;

@@ -10,7 +10,7 @@ package model;
  */
 public class UsuarioModel {
 
-    private String user_id;
+    private int user_id;
     private String user_name;
     private int depto_id;
     private String user_rfc;
@@ -20,7 +20,7 @@ public class UsuarioModel {
     private String user_created;
 
     public UsuarioModel() {
-        this.user_id = "";
+        this.user_id = 0;
         this.user_name = "";
         this.depto_id = 0;
         this.user_rfc = "";
@@ -30,11 +30,11 @@ public class UsuarioModel {
         this.user_created = "";
     }
 
-    public String getUser_id() {
+    public int getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(String user_id) {
+    public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
 

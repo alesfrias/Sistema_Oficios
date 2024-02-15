@@ -58,19 +58,22 @@ public class DepartamentoController {
             st.close();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al obtener las jefaturas de la base de datos: " + e);
+            JOptionPane.showMessageDialog(null, "Error al obtener la jefatura de la base de datos: " + e);
         }
         return depto;
     }
 
     public void addDepto(DepartamentoModel departamento) throws Exception {
+
         try {
             Connection conn = Conexion.conectar();
             PreparedStatement st = conn.prepareStatement("INSERT INTO departamento VALUES(?, ?, 1, now())");
             st.setInt(1, 0);
             st.setString(2, departamento.getDepto_name());
+
             st.executeUpdate();
             st.close();
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al guardar la jefatura en la base de datos: " + e);
         } finally {
@@ -79,13 +82,16 @@ public class DepartamentoController {
     }
 
     public void updDepto(DepartamentoModel departamento) throws Exception {
+       
         try {
             Connection conn = Conexion.conectar();
             PreparedStatement st = conn.prepareStatement("UPDATE departamento SET depto_name = ? WHERE depto_id = ?");
             st.setString(1, departamento.getDepto_name());
             st.setInt(2, departamento.getDepto_id());
+
             st.executeUpdate();
             st.close();
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al actualizar la jefatura en la base de datos: " + e);
         } finally {
@@ -99,9 +105,10 @@ public class DepartamentoController {
             Connection conn = Conexion.conectar();
             PreparedStatement st = conn.prepareStatement("UPDATE departamento SET depto_status = 0 WHERE depto_id = ?");
             st.setInt(1, deptoId);
+
             st.executeUpdate();
-            System.out.println("Query --> " + st);
             st.close();
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al eliminar la jefatura en la base de datos: " + e);
         } finally {

@@ -18,7 +18,7 @@ public class Departamentos extends javax.swing.JPanel {
             DepartamentoController departamentoController = new DepartamentoController();
             DefaultTableModel tableModel = (DefaultTableModel) tblDeptos.getModel();
             departamentoController.getDeptos("").forEach((departamento) -> tableModel.addRow(new Object[]{
-                departamento.getDepto_id(), departamento.getDepto_name()}));
+            departamento.getDepto_id(), departamento.getDepto_name()}));
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al llenar la tabla de jefaturas" + e);
@@ -341,16 +341,16 @@ public class Departamentos extends javax.swing.JPanel {
     }//GEN-LAST:event_lblEditarMouseClicked
 
     private void lblBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBuscarMouseClicked
-       Buscar();
+        Buscar();
     }//GEN-LAST:event_lblBuscarMouseClicked
 
     private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
         Buscar();
     }//GEN-LAST:event_txtBuscarKeyPressed
 
-    private void Buscar(){
+    private void Buscar() {
         String jefatura = txtBuscar.getText();
-        
+
         try {
             DepartamentoController deptoController = new DepartamentoController();
             DefaultTableModel tableModel = (DefaultTableModel) tblDeptos.getModel();

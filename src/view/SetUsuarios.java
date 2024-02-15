@@ -1,3 +1,4 @@
+
 package view;
 
 import controller.UsuarioController;
@@ -9,6 +10,7 @@ import model.UsuarioModel;
  *
  * @author Ing. Alex Espejel
  */
+
 public class SetUsuarios extends javax.swing.JPanel {
 
     boolean upd = false;
@@ -62,6 +64,8 @@ public class SetUsuarios extends javax.swing.JPanel {
         bckGuardar = new javax.swing.JPanel();
         lblGuardar = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        bckCancelar = new javax.swing.JPanel();
+        lblCancelar = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(995, 559));
@@ -173,7 +177,7 @@ public class SetUsuarios extends javax.swing.JPanel {
         bckGuardar.setLayout(bckGuardarLayout);
         bckGuardarLayout.setHorizontalGroup(
             bckGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(lblGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         bckGuardarLayout.setVerticalGroup(
             bckGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,6 +185,44 @@ public class SetUsuarios extends javax.swing.JPanel {
         );
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        bckCancelar.setBackground(new java.awt.Color(255, 0, 0));
+        bckCancelar.setPreferredSize(new java.awt.Dimension(350, 40));
+
+        lblCancelar.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        lblCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        lblCancelar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCancelar.setText("Cancelar");
+        lblCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCancelarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblCancelarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblCancelarMouseExited(evt);
+            }
+        });
+        lblCancelar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                lblCancelarKeyPressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout bckCancelarLayout = new javax.swing.GroupLayout(bckCancelar);
+        bckCancelar.setLayout(bckCancelarLayout);
+        bckCancelarLayout.setHorizontalGroup(
+            bckCancelarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bckCancelarLayout.createSequentialGroup()
+                .addComponent(lblCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        bckCancelarLayout.setVerticalGroup(
+            bckCancelarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -203,8 +245,11 @@ public class SetUsuarios extends javax.swing.JPanel {
                     .addComponent(jLabel4)
                     .addComponent(txtContraseña)
                     .addComponent(jLabel5)
-                    .addComponent(bckGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmbRol, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbRol, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(bckCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bckGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(89, 89, 89))
         );
         layout.setVerticalGroup(
@@ -235,13 +280,18 @@ public class SetUsuarios extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cmbArea, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cmbRol, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(33, 33, 33)
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(bckGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtRfc, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(188, 188, 188))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtRfc, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(76, 76, 76)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(bckCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(bckGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(180, 180, 180))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -298,6 +348,23 @@ public class SetUsuarios extends javax.swing.JPanel {
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
         // TODO add your handling code here:
     }//GEN-LAST:event_formFocusGained
+
+    private void lblCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCancelarMouseClicked
+        // TODO add your handling code here:
+        FrmAdmin.ShowJPanel(new Usuarios());
+    }//GEN-LAST:event_lblCancelarMouseClicked
+
+    private void lblCancelarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCancelarMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblCancelarMouseEntered
+
+    private void lblCancelarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCancelarMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblCancelarMouseExited
+
+    private void lblCancelarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lblCancelarKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblCancelarKeyPressed
 //    Método para guardar y Actualizar Usuario
 
     private void GuardarUsuario() {
@@ -306,33 +373,36 @@ public class SetUsuarios extends javax.swing.JPanel {
                 || txtContraseña.getText().isEmpty() || cmbArea.getSelectedIndex() == 0
                 || cmbRol.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Es necesario ingresar todos los datos");
-        } else {
-            UsuarioController usuarioController = new UsuarioController();
-            UsuarioModel usuario = upd ? userUpdate : new UsuarioModel();
-            usuario.setUser_name(txtNombre.getText().trim());
-            usuario.setDepto_id(cmbArea.getSelectedIndex());
-            usuario.setUser_rfc(txtRfc.getText().trim());
-            usuario.setUser_pwd(txtContraseña.getText().trim());
-            usuario.setUser_rol(cmbRol.getSelectedItem().toString());
-            if (!upd) {
-                if (usuarioController.addUser(usuario)) {
-                    JOptionPane.showMessageDialog(null, "Usuario Guardado");
-                    FrmAdmin.ShowJPanel(new Usuarios());
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error al guardar usuario");
-                    limpiarFormulario();
-                }
-            } else {
-                if (usuarioController.updUser(usuario)) {
-                    JOptionPane.showMessageDialog(null, "Usuario Actualizado");
-                    FrmAdmin.ShowJPanel(new Usuarios());
+            return;
+        }
 
-                } else {
-                    limpiarFormulario();
-                }
+        UsuarioModel usuario = upd ? userUpdate : new UsuarioModel();
+        usuario.setUser_name(txtNombre.getText().trim());
+        usuario.setDepto_id(cmbArea.getSelectedIndex());
+        usuario.setUser_rfc(txtRfc.getText().trim());
+        usuario.setUser_pwd(txtContraseña.getText().trim());
+        usuario.setUser_rol(cmbRol.getSelectedItem().toString());
+
+        try {
+            UsuarioController usuarioController = new UsuarioController();
+
+            if (!upd) {
+                usuarioController.addUser(usuario);
+
+            } else {
+                usuarioController.updUser(usuario);
+
             }
+             String successMsg = upd ? "actualizado" : "registrado";
+            JOptionPane.showMessageDialog(null, "Usuario " + successMsg + " correctamente");
+            FrmAdmin.ShowJPanel(new Usuarios());
+            
+        } catch (Exception e) {
+            String errorMsg = upd ? "editar" : "registrar";
+            JOptionPane.showMessageDialog(null, "Error al " + errorMsg + " usuario" + e);
         }
     }
+
 
     private void limpiarFormulario() {
         txtNombre.setText("");
@@ -342,6 +412,7 @@ public class SetUsuarios extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel bckCancelar;
     private javax.swing.JPanel bckGuardar;
     private javax.swing.JComboBox<String> cmbArea;
     private javax.swing.JComboBox<String> cmbRol;
@@ -351,6 +422,7 @@ public class SetUsuarios extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblCancelar;
     private javax.swing.JLabel lblGuardar;
     private javax.swing.JLabel lblHeader;
     private javax.swing.JTextField txtContraseña;

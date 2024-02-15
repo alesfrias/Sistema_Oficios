@@ -6,6 +6,8 @@ import java.sql.Connection;
 import sql.Conexion;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import model.UsuarioModel;
 
@@ -33,31 +35,42 @@ public class UsuarioController {
         return respuesta;
     }
 
-//    Obtener Todos los Usuarios
-    public boolean getUsers() {
-        boolean respuesta = false;
+    //Obtener Departamentos
+    public List<UsuarioModel> getUsers(String user) throws Exception {
 
-        Connection conn = Conexion.conectar();
-        String query = "SELECT user_id, user_name, depto_id, user_rfc, user_pwd "
-                + "FROM usuario_sistema WHERE user_status = 1";
-        Statement st;
-
+        List<UsuarioModel> list = null;
         try {
-            st = conn.createStatement();
-            ResultSet rs = st.executeQuery(query);
+            Connection conn = Conexion.conectar();
+            String query = user.isEmpty() ? "SELECT user_id, user_name, depto_id, user_rfc, user_pwd, user_rol FROM usuario_sistema WHERE user_status = 1"
+                    : "SELECT user_id, user_name, depto_id, user_rfc, user_pwd, user_rol FROM usuario_sistema WHERE user_name LIKE '%" + user + "%' AND user_status = 1";
+
+            PreparedStatement st = conn.prepareStatement(query);
+            list = new ArrayList();
+            ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
-                respuesta = true;
+                UsuarioModel users = new UsuarioModel();
+                users.setUser_id(rs.getInt("user_id"));
+                users.setUser_name(rs.getString("user_name"));
+                users.setDepto_id(rs.getInt("depto_id"));
+                users.setUser_rfc(rs.getString("user_rfc"));
+                users.setUser_pwd(rs.getString("user_pwd"));
+                users.setUser_rol(rs.getString("user_rol"));
+                list.add(users);
             }
-
+            rs.close();
+            st.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al obtener usuarios");
+            JOptionPane.showMessageDialog(null, "Error al obtener los usuarios de la base de datos: " + e);
+        } finally {
+            Conexion.conectar().close();
         }
-        return respuesta;
+        return list;
     }
 
 //    Obtener Usuario por ID
     public UsuarioModel getUserById(int userId) throws Exception {
+
         UsuarioModel usuario = new UsuarioModel();
 
         try {
@@ -66,10 +79,10 @@ public class UsuarioController {
 
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                usuario.setUser_id(rs.getString("user_id"));
+                usuario.setUser_id(rs.getInt("user_id"));
                 usuario.setUser_name(rs.getString("user_name"));
                 usuario.setUser_rfc(rs.getString("user_rfc"));
-                usuario.setUser_pwd(rs.getNString("user_pwd"));
+                usuario.setUser_pwd(rs.getString("user_pwd"));
             }
             rs.close();
             st.close();
@@ -82,77 +95,69 @@ public class UsuarioController {
     }
 
 //    Agregar Usuario
-    public boolean addUser(UsuarioModel usuario) {
-        boolean respuesta = false;
-        Connection conn = Conexion.conectar();
+    public void addUser(UsuarioModel usuario) throws Exception {
 
         try {
-            PreparedStatement query = conn.prepareStatement("INSERT INTO usuario_sistema VALUES(?,?,?,?,?,?,1,now())");
-            query.setString(1, "0");
-            query.setString(2, usuario.getUser_name());
-            query.setInt(3, usuario.getDepto_id());
-            query.setString(4, usuario.getUser_rfc());
-            query.setString(5, usuario.getUser_pwd());
-            query.setString(6, usuario.getUser_rol());
+            Connection conn = Conexion.conectar();
+            PreparedStatement st = conn.prepareStatement("INSERT INTO usuario_sistema VALUES(?,?,?,?,?,?,1,now())");
+            st.setInt(1, 0);
+            st.setString(2, usuario.getUser_name());
+            st.setInt(3, usuario.getDepto_id());
+            st.setString(4, usuario.getUser_rfc());
+            st.setString(5, usuario.getUser_pwd());
+            st.setString(6, usuario.getUser_rol());
 
-            if (query.executeUpdate() > 0) {
-                respuesta = true;
-            }
-            conn.close();
+            st.executeUpdate();
+            st.close();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar el registro " + e);
+            JOptionPane.showMessageDialog(null, "Error al guardar el registro en la base de datos " + e);
+        } finally {
+            Conexion.conectar().close();
         }
-        return respuesta;
     }
 
 //    Actualizar Usuario
-    public boolean updUser(UsuarioModel usuario) {
-        boolean respuesta = false;
-        Connection conn = Conexion.conectar();
+    public void updUser(UsuarioModel usuario) throws Exception {
 
         try {
-            PreparedStatement query = conn.prepareStatement("UPDATE usuario_sistema "
+            Connection conn = Conexion.conectar();
+            PreparedStatement st = conn.prepareStatement("UPDATE usuario_sistema "
                     + "SET user_name = ?, depto_id = ?, user_rfc = ?, user_pwd = ?, user_rol = ? "
                     + "WHERE user_id = ?");
-            query.setString(1, usuario.getUser_name());
-            query.setInt(2, usuario.getDepto_id());
-            query.setString(3, usuario.getUser_rfc());
-            query.setString(4, usuario.getUser_pwd());
-            query.setString(5, usuario.getUser_rol());
-            query.setString(6, usuario.getUser_id());
+            st.setString(1, usuario.getUser_name());
+            st.setInt(2, usuario.getDepto_id());
+            st.setString(3, usuario.getUser_rfc());
+            st.setString(4, usuario.getUser_pwd());
+            st.setString(5, usuario.getUser_rol());
+            st.setInt(6, usuario.getUser_id());
 
-            if (query.executeUpdate() > 0) {
-                respuesta = true;
-            }
-            conn.close();
+            st.executeUpdate();
+            st.close();
+            
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al intentar actualizar");
+        } finally {
+            Conexion.conectar().close();
         }
-        return respuesta;
     }
 
 //    Eliminar Usuario
-    public boolean delUser(int iduser) {
-
-        boolean respuesta = false;
-        Connection conn = Conexion.conectar();
+    public void delUser(int iduser) throws Exception {
 
         try {
-
-            PreparedStatement query = conn.prepareStatement("UPDATE usuario_sistema SET user_status = 0 WHERE user_id = ?");
-            query.setInt(1, iduser);
-
-            if (query.executeUpdate() > 0) {
-                respuesta = true;
-            }
-
-            conn.close();
+            Connection conn = Conexion.conectar();
+            PreparedStatement st = conn.prepareStatement("UPDATE usuario_sistema SET user_status = 0 WHERE user_id = ?");
+            st.setInt(1, iduser);
+            
+            st.executeUpdate();
+            st.close();
 
         } catch (SQLException e) {
 
             JOptionPane.showMessageDialog(null, "Error al eliminar usuario " + e);
+        }finally{
+            Conexion.conectar().close();
         }
-        return respuesta;
     }
 }
