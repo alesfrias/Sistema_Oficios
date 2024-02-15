@@ -29,7 +29,6 @@ public class SetUsuarios extends javax.swing.JPanel {
         userUpdate = usuario;
         initUpdate();
         setVisible(true);
-        txtNombre.requestFocus();
     }
 
     private void initUpdate() {

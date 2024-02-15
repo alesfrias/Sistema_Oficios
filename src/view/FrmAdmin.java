@@ -126,6 +126,9 @@ public class FrmAdmin extends javax.swing.JFrame {
         lblArea.setIconTextGap(10);
         lblArea.setPreferredSize(new java.awt.Dimension(200, 50));
         lblArea.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAreaMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblAreaMouseEntered(evt);
             }
@@ -494,6 +497,11 @@ public class FrmAdmin extends javax.swing.JFrame {
         bckUsuarios.setBackground(new Color(0, 26, 90));
         lblUsuarios.setForeground(Color.WHITE);
     }//GEN-LAST:event_lblUsuariosMouseExited
+
+    private void lblAreaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAreaMouseClicked
+        // TODO add your handling code here:
+        ShowJPanel(new Dependencias());
+    }//GEN-LAST:event_lblAreaMouseClicked
 
     /**
      * @param args the command line arguments
