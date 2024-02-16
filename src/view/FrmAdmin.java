@@ -161,6 +161,9 @@ public class FrmAdmin extends javax.swing.JFrame {
         lblOficios.setIconTextGap(10);
         lblOficios.setPreferredSize(new java.awt.Dimension(200, 50));
         lblOficios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblOficiosMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblOficiosMouseEntered(evt);
             }
@@ -502,6 +505,11 @@ public class FrmAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
         ShowJPanel(new Dependencias());
     }//GEN-LAST:event_lblAreaMouseClicked
+
+    private void lblOficiosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblOficiosMouseClicked
+        // TODO add your handling code here:
+        ShowJPanel(new Oficios());
+    }//GEN-LAST:event_lblOficiosMouseClicked
 
     /**
      * @param args the command line arguments

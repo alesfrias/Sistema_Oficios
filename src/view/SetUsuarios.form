@@ -169,10 +169,8 @@
     <Component class="javax.swing.JComboBox" name="cmbArea">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="3">
-            <StringItem index="0" value="-- Seleccione Departamento"/>
-            <StringItem index="1" value="Departamento de inform&#xe1;tica"/>
-            <StringItem index="2" value="Departamento de Planeaci&#xf3;n"/>
+          <StringArray count="1">
+            <StringItem index="0" value="--Seleccione Jefatura"/>
           </StringArray>
         </Property>
         <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">

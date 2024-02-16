@@ -1,6 +1,5 @@
 package view;
 
-import controller.DepartamentoController;
 import controller.DependenciaController;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
@@ -114,8 +113,11 @@ public class Dependencias extends javax.swing.JPanel {
         tblScroll.setViewportView(tblDependencias);
         if (tblDependencias.getColumnModel().getColumnCount() > 0) {
             tblDependencias.getColumnModel().getColumn(0).setResizable(false);
+            tblDependencias.getColumnModel().getColumn(0).setPreferredWidth(10);
             tblDependencias.getColumnModel().getColumn(1).setResizable(false);
+            tblDependencias.getColumnModel().getColumn(1).setPreferredWidth(265);
             tblDependencias.getColumnModel().getColumn(2).setResizable(false);
+            tblDependencias.getColumnModel().getColumn(2).setPreferredWidth(265);
         }
 
         bckBorrar.setBackground(new java.awt.Color(0, 26, 90));

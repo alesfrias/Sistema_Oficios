@@ -20,7 +20,7 @@ public class DependenciaController {
         try {
             Connection conn = Conexion.conectar();
             String query = dependencia.isEmpty() ? "SELECT depen_id, depen_name, depen_resp FROM dependencia WHERE depen_status = 1"
-                    : "SELECT depen_id, depen_name, depen_resp FROM dependencia WHERE depen_name LIKE '%" + dependencia + "%' depen_status = 1";
+                    : "SELECT depen_id, depen_name, depen_resp FROM dependencia WHERE depen_name LIKE '%" + dependencia + "%' AND depen_status = 1";
 
             PreparedStatement st = conn.prepareStatement(query);
             list = new ArrayList();

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import sql.Conexion;
 
@@ -82,7 +83,7 @@ public class DepartamentoController {
     }
 
     public void updDepto(DepartamentoModel departamento) throws Exception {
-       
+
         try {
             Connection conn = Conexion.conectar();
             PreparedStatement st = conn.prepareStatement("UPDATE departamento SET depto_name = ? WHERE depto_id = ?");
@@ -111,6 +112,22 @@ public class DepartamentoController {
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al eliminar la jefatura en la base de datos: " + e);
+        } finally {
+            Conexion.conectar().close();
+        }
+    }
+
+    public void getJefatura(JComboBox jefatura) throws SQLException {
+        try {
+            Connection conn = Conexion.conectar();
+            PreparedStatement st = conn.prepareStatement("SELECT depto_name FROM departamento WHERE depto_status = 1");
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                jefatura.addItem(rs.getString("depto_name"));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al listar jefaturas en el menu: " + e);
         } finally {
             Conexion.conectar().close();
         }

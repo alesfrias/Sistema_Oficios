@@ -41,8 +41,10 @@ public class UsuarioController {
         List<UsuarioModel> list = null;
         try {
             Connection conn = Conexion.conectar();
-            String query = user.isEmpty() ? "SELECT user_id, user_name, depto_id, user_rfc, user_pwd, user_rol FROM usuario_sistema WHERE user_status = 1"
-                    : "SELECT user_id, user_name, depto_id, user_rfc, user_pwd, user_rol FROM usuario_sistema WHERE user_name LIKE '%" + user + "%' AND user_status = 1";
+            String query = user.isEmpty() ? "SELECT u.user_id, u.user_name, u.depto_id, u.user_rfc, u.user_pwd, u.user_rol, d.depto_name "
+                    + "FROM usuario_sistema u, departamento d WHERE u.user_status = 1 AND u.depto_id = d.depto_id"
+                    : "SELECT user_id, user_name, depto_id, user_rfc, user_pwd, user_rol "
+                    + "FROM usuario_sistema WHERE user_name LIKE '%" + user + "%' AND user_status = 1";
 
             PreparedStatement st = conn.prepareStatement(query);
             list = new ArrayList();
@@ -60,6 +62,7 @@ public class UsuarioController {
             }
             rs.close();
             st.close();
+            
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al obtener los usuarios de la base de datos: " + e);
         } finally {

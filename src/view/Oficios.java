@@ -1,13 +1,13 @@
 package view;
 
-import controller.DepartamentoController;
+import controller.UsuarioController;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 
-public class Departamentos extends javax.swing.JPanel {
+public class Oficios extends javax.swing.JPanel {
 
-    public Departamentos() {
+    public Oficios() {
         initComponents();
         this.cargarTabla();
     }
@@ -15,13 +15,15 @@ public class Departamentos extends javax.swing.JPanel {
     private void cargarTabla() {
 
         try {
-            DepartamentoController departamentoController = new DepartamentoController();
-            DefaultTableModel tableModel = (DefaultTableModel) tblDeptos.getModel();
-            departamentoController.getDeptos("").forEach((departamento) -> tableModel.addRow(new Object[]{
-            departamento.getDepto_id(), departamento.getDepto_name()}));
+            UsuarioController usuarioController = new UsuarioController();
+            DefaultTableModel tableModel = (DefaultTableModel) tblUsuarios.getModel();
+            usuarioController.getUsers("").forEach((usuario) -> tableModel.addRow(new Object[]{
+                usuario.getUser_id(), usuario.getUser_name(), usuario.getDepto_id(), usuario.getUser_rfc(),
+                usuario.getUser_pwd(), usuario.getUser_rol()}));
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al llenar la tabla de jefaturas" + e);
+            JOptionPane.showMessageDialog(null, "Error al llenar la tabla de usuarios" + e);
+
         }
     }
 
@@ -35,7 +37,7 @@ public class Departamentos extends javax.swing.JPanel {
         bckBuscar = new javax.swing.JPanel();
         lblBuscar = new javax.swing.JLabel();
         tblScroll = new javax.swing.JScrollPane();
-        tblDeptos = new javax.swing.JTable();
+        tblUsuarios = new javax.swing.JTable();
         bckBorrar = new javax.swing.JPanel();
         lblBorrar = new javax.swing.JLabel();
         bckEditar = new javax.swing.JPanel();
@@ -51,7 +53,7 @@ public class Departamentos extends javax.swing.JPanel {
 
         lblHeader.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         lblHeader.setForeground(new java.awt.Color(0, 26, 90));
-        lblHeader.setText("Jefaturas");
+        lblHeader.setText("Relación de Oficios Generados");
 
         txtBuscar.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txtBuscar.setForeground(new java.awt.Color(0, 26, 90));
@@ -90,32 +92,37 @@ public class Departamentos extends javax.swing.JPanel {
             .addComponent(lblBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        tblDeptos.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        tblDeptos.setForeground(new java.awt.Color(0, 26, 90));
-        tblDeptos.setModel(new javax.swing.table.DefaultTableModel(
+        tblUsuarios.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        tblUsuarios.setForeground(new java.awt.Color(0, 26, 90));
+        tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "JEFATURA"
+                "ID", "DEPENDENCIA", "DIRIGIDO A", "ASUNTO", "ELABORADO POR", "F. CREACIÓN", "OBSERVACIONES", "ESTATUS"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tblDeptos.setRowHeight(40);
-        tblDeptos.getTableHeader().setReorderingAllowed(false);
-        tblScroll.setViewportView(tblDeptos);
-        if (tblDeptos.getColumnModel().getColumnCount() > 0) {
-            tblDeptos.getColumnModel().getColumn(0).setResizable(false);
-            tblDeptos.getColumnModel().getColumn(0).setPreferredWidth(20);
-            tblDeptos.getColumnModel().getColumn(1).setResizable(false);
-            tblDeptos.getColumnModel().getColumn(1).setPreferredWidth(520);
+        tblUsuarios.setRowHeight(40);
+        tblUsuarios.getTableHeader().setReorderingAllowed(false);
+        tblScroll.setViewportView(tblUsuarios);
+        if (tblUsuarios.getColumnModel().getColumnCount() > 0) {
+            tblUsuarios.getColumnModel().getColumn(0).setResizable(false);
+            tblUsuarios.getColumnModel().getColumn(0).setPreferredWidth(10);
+            tblUsuarios.getColumnModel().getColumn(1).setResizable(false);
+            tblUsuarios.getColumnModel().getColumn(2).setResizable(false);
+            tblUsuarios.getColumnModel().getColumn(3).setResizable(false);
+            tblUsuarios.getColumnModel().getColumn(4).setResizable(false);
+            tblUsuarios.getColumnModel().getColumn(5).setResizable(false);
+            tblUsuarios.getColumnModel().getColumn(6).setResizable(false);
+            tblUsuarios.getColumnModel().getColumn(7).setResizable(false);
         }
 
         bckBorrar.setBackground(new java.awt.Color(0, 26, 90));
@@ -300,45 +307,45 @@ public class Departamentos extends javax.swing.JPanel {
     }//GEN-LAST:event_lblNuevoMouseExited
 
     private void lblNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNuevoMouseClicked
-        FrmAdmin.ShowJPanel(new SetDepartamento());
+        FrmAdmin.ShowJPanel(new SetUsuarios());
     }//GEN-LAST:event_lblNuevoMouseClicked
 
     private void lblBorrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBorrarMouseClicked
-        if (tblDeptos.getSelectedRow() > -1) {
+//        ImageIcon icono = new ImageIcon("src\\img\\alert.png");
+        if (tblUsuarios.getSelectedRow() > -1) {
 
-            int borrar = JOptionPane.showConfirmDialog(null, "¿Realmente deseas eliminar el registro?", "ELIMINAR JEFATURA", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE/*, icono*/);
+            int borrar = JOptionPane.showConfirmDialog(null, "¿Deseas borrar el registro?", "ELIMINAR USUARIO", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE/*, icono*/);
 
             if (borrar == 0) {
+                UsuarioController usuarioController = new UsuarioController();
+                DefaultTableModel tableModel = (DefaultTableModel) tblUsuarios.getModel();
 
-                DepartamentoController deptoController = new DepartamentoController();
-                DefaultTableModel tableModel = (DefaultTableModel) tblDeptos.getModel();
-
-                for (int i : tblDeptos.getSelectedRows()) {
+                for (int i : tblUsuarios.getSelectedRows()) {
                     try {
-                        deptoController.delDepto((int) tblDeptos.getValueAt(i, 0));
+                        usuarioController.delUser((int) tblUsuarios.getValueAt(i, 0));
                         tableModel.removeRow(i);
-
                     } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, "Error al eliminar jefatura: " + e);
+                        JOptionPane.showMessageDialog(null, "Error al eliminar usuario" + e);
                     }
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Selecciona la jefatura a eliminar");
+
+            JOptionPane.showMessageDialog(null, "Selecciona el usuario a eliminar");
         }
     }//GEN-LAST:event_lblBorrarMouseClicked
 
     private void lblEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMouseClicked
-        if (tblDeptos.getSelectedRow() > -1) {
+        if (tblUsuarios.getSelectedRow() > -1) {
             try {
-                int deptoId = (int) tblDeptos.getValueAt(tblDeptos.getSelectedRow(), 0);
-                DepartamentoController deptoController = new DepartamentoController();
-                FrmAdmin.ShowJPanel(new SetDepartamento(deptoController.getDeptoById(deptoId)));
+                int userId = (int) tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(), 0);
+                UsuarioController usuarioController = new UsuarioController();
+                FrmAdmin.ShowJPanel(new SetUsuarios(usuarioController.getUserById(userId)));
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error al seleccionar la jefatura");
+                JOptionPane.showMessageDialog(null, "Error al obtener usuario");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Selecciona la jefatura a editar");
+            JOptionPane.showMessageDialog(null, "Selecciona el usuario a editar");
         }
     }//GEN-LAST:event_lblEditarMouseClicked
 
@@ -351,17 +358,20 @@ public class Departamentos extends javax.swing.JPanel {
     }//GEN-LAST:event_txtBuscarKeyPressed
 
     private void Buscar() {
-        String jefatura = txtBuscar.getText();
+        String usuario = txtBuscar.getText();
 
         try {
-            DepartamentoController deptoController = new DepartamentoController();
-            DefaultTableModel tableModel = (DefaultTableModel) tblDeptos.getModel();
+            UsuarioController userController = new UsuarioController();
+            DefaultTableModel tableModel = (DefaultTableModel) tblUsuarios.getModel();
             tableModel.setRowCount(0);
-            deptoController.getDeptos(jefatura).forEach((depto) -> tableModel.addRow(new Object[]{depto.getDepto_id(), depto.getDepto_name()}));
+            userController.getUsers(usuario).forEach((user) -> tableModel.addRow(new Object[]{
+                user.getUser_id(), user.getUser_name(), user.getDepto_id(), user.getUser_rfc(),
+                user.getUser_pwd(), user.getUser_rol()}));
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al buscar la jefatura");
+            JOptionPane.showMessageDialog(null, "Error al buscar el usuario");
         }
     }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bckBorrar;
     private javax.swing.JPanel bckBuscar;
@@ -373,8 +383,8 @@ public class Departamentos extends javax.swing.JPanel {
     private javax.swing.JLabel lblEditar;
     private javax.swing.JLabel lblHeader;
     private javax.swing.JLabel lblNuevo;
-    public static javax.swing.JTable tblDeptos;
     public static javax.swing.JScrollPane tblScroll;
+    public static javax.swing.JTable tblUsuarios;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

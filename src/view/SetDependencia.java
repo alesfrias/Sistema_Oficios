@@ -238,7 +238,7 @@ public class SetDependencia extends javax.swing.JPanel {
 
     private void lblGuardarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lblGuardarKeyPressed
         if (evt.getKeyCode() == evt.VK_ENTER) {
-            GuardarDependencia();
+            txtResponsable.requestFocus();
         }
     }//GEN-LAST:event_lblGuardarKeyPressed
 
@@ -261,6 +261,9 @@ public class SetDependencia extends javax.swing.JPanel {
 
     private void txtResponsableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtResponsableKeyPressed
         // TODO add your handling code here:
+         if (evt.getKeyCode() == evt.VK_ENTER) {
+            GuardarDependencia();
+        }
     }//GEN-LAST:event_txtResponsableKeyPressed
 //    Método para guardar y Actualizar Usuario
 
@@ -293,7 +296,6 @@ public class SetDependencia extends javax.swing.JPanel {
             String errorMsg = upd ? "editar" : "registrar";
             JOptionPane.showMessageDialog(null, "Error al " + errorMsg + " la dependencia: " + e);
         }
-        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bckCancelar;

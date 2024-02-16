@@ -115,8 +115,11 @@ public class Usuarios extends javax.swing.JPanel {
         tblScroll.setViewportView(tblUsuarios);
         if (tblUsuarios.getColumnModel().getColumnCount() > 0) {
             tblUsuarios.getColumnModel().getColumn(0).setResizable(false);
+            tblUsuarios.getColumnModel().getColumn(0).setPreferredWidth(10);
             tblUsuarios.getColumnModel().getColumn(1).setResizable(false);
+            tblUsuarios.getColumnModel().getColumn(1).setPreferredWidth(250);
             tblUsuarios.getColumnModel().getColumn(2).setResizable(false);
+            tblUsuarios.getColumnModel().getColumn(2).setPreferredWidth(200);
             tblUsuarios.getColumnModel().getColumn(3).setResizable(false);
             tblUsuarios.getColumnModel().getColumn(4).setResizable(false);
             tblUsuarios.getColumnModel().getColumn(5).setResizable(false);

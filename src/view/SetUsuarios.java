@@ -1,8 +1,10 @@
-
 package view;
 
+import controller.DepartamentoController;
 import controller.UsuarioController;
 import java.awt.Color;
+import java.sql.SQLException;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import model.UsuarioModel;
 
@@ -10,7 +12,6 @@ import model.UsuarioModel;
  *
  * @author Ing. Alex Espejel
  */
-
 public class SetUsuarios extends javax.swing.JPanel {
 
     boolean upd = false;
@@ -20,7 +21,7 @@ public class SetUsuarios extends javax.swing.JPanel {
         initComponents();
         initUpdate();
         setVisible(true);
-        txtNombre.requestFocus();
+        cargarJefaturas(cmbArea);
     }
 
     public SetUsuarios(UsuarioModel usuario) {
@@ -29,6 +30,7 @@ public class SetUsuarios extends javax.swing.JPanel {
         userUpdate = usuario;
         initUpdate();
         setVisible(true);
+        cargarJefaturas(cmbArea);
     }
 
     private void initUpdate() {
@@ -40,7 +42,6 @@ public class SetUsuarios extends javax.swing.JPanel {
                 txtNombre.setText(userUpdate.getUser_name());
                 txtRfc.setText(userUpdate.getUser_rfc());
                 txtContraseña.setText(userUpdate.getUser_pwd());
-                cmbRol.setSelectedItem(userUpdate.getUser_rol());
             }
         }
     }
@@ -101,7 +102,7 @@ public class SetUsuarios extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(0, 26, 90));
         jLabel2.setText("Departamento");
 
-        cmbArea.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione Departamento", "Departamento de informática", "Departamento de Planeación" }));
+        cmbArea.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione Jefatura" }));
         cmbArea.setNextFocusableComponent(txtRfc);
         cmbArea.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -392,22 +393,23 @@ public class SetUsuarios extends javax.swing.JPanel {
                 usuarioController.updUser(usuario);
 
             }
-             String successMsg = upd ? "actualizado" : "registrado";
+            String successMsg = upd ? "actualizado" : "registrado";
             JOptionPane.showMessageDialog(null, "Usuario " + successMsg + " correctamente");
             FrmAdmin.ShowJPanel(new Usuarios());
-            
+
         } catch (Exception e) {
             String errorMsg = upd ? "editar" : "registrar";
             JOptionPane.showMessageDialog(null, "Error al " + errorMsg + " usuario" + e);
         }
     }
-
-
-    private void limpiarFormulario() {
-        txtNombre.setText("");
-        txtRfc.setText("");
-        txtContraseña.setText("");
-        txtNombre.requestFocus();
+//Llenar Combo de jefatura
+    private void cargarJefaturas(JComboBox cmbJefatura) {
+        try {
+            DepartamentoController departamento = new DepartamentoController();
+            departamento.getJefatura(cmbJefatura);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al listar las jefaturas en el menú desplegable" + e);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
