@@ -13,6 +13,7 @@ public class UsuarioModel {
     private int user_id;
     private String user_name;
     private int depto_id;
+    private String depto_name;
     private String user_rfc;
     private String user_pwd;
     private String user_rol;
@@ -23,6 +24,7 @@ public class UsuarioModel {
         this.user_id = 0;
         this.user_name = "";
         this.depto_id = 0;
+        this.depto_name = "";
         this.user_rfc = "";
         this.user_pwd = "";
         this.user_rol = "";
@@ -52,6 +54,14 @@ public class UsuarioModel {
 
     public void setDepto_id(int depto_id) {
         this.depto_id = depto_id;
+    }
+
+    public String getDepto_name() {
+        return depto_name;
+    }
+
+    public void setDepto_name(String depto_name) {
+        this.depto_name = depto_name;
     }
 
     public String getUser_rfc() {

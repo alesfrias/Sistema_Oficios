@@ -18,7 +18,7 @@ public class Usuarios extends javax.swing.JPanel {
             UsuarioController usuarioController = new UsuarioController();
             DefaultTableModel tableModel = (DefaultTableModel) tblUsuarios.getModel();
             usuarioController.getUsers("").forEach((usuario) -> tableModel.addRow(new Object[]{
-                usuario.getUser_id(), usuario.getUser_name(), usuario.getDepto_id(), usuario.getUser_rfc(),
+                usuario.getUser_id(), usuario.getUser_name(), usuario.getDepto_name(), usuario.getUser_rfc(),
                 usuario.getUser_pwd(), usuario.getUser_rol()}));
 
         } catch (Exception e) {
@@ -365,7 +365,7 @@ public class Usuarios extends javax.swing.JPanel {
             DefaultTableModel tableModel = (DefaultTableModel) tblUsuarios.getModel();
             tableModel.setRowCount(0);
             userController.getUsers(usuario).forEach((user) -> tableModel.addRow(new Object[]{
-                user.getUser_id(), user.getUser_name(), user.getDepto_id(), user.getUser_rfc(),
+                user.getUser_id(), user.getUser_name(), user.getDepto_name(), user.getUser_rfc(),
                 user.getUser_pwd(), user.getUser_rol()}));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al buscar el usuario");

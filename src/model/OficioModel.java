@@ -1,12 +1,15 @@
-package controller;
+package model;
 
 public class OficioModel {
 
     private int ofi_id;
     private int depen_id;
+    private String depen_name;
+    private String depen_resp;
     private String ofi_asunto;
     private String ofi_fech_crea;
     private int user_id;
+    private String user_name;
     private String ofi_obs;
     private int ofi_status;
     private String ofi_update;
@@ -14,9 +17,12 @@ public class OficioModel {
     public OficioModel() {
         this.ofi_id = 0;
         this.depen_id = 0;
+        this.depen_name = "";
+        this.depen_resp = "";
         this.ofi_asunto = "";
         this.ofi_fech_crea = "";
         this.user_id = 0;
+        this.user_name = "";
         this.ofi_obs = "";
         this.ofi_status = 0;
         this.ofi_update = "";
@@ -36,6 +42,22 @@ public class OficioModel {
 
     public void setDepen_id(int depen_id) {
         this.depen_id = depen_id;
+    }
+
+    public String getDepen_name() {
+        return depen_name;
+    }
+
+    public void setDepen_name(String depen_name) {
+        this.depen_name = depen_name;
+    }
+
+    public String getDepen_resp() {
+        return depen_resp;
+    }
+
+    public void setDepen_resp(String depen_resp) {
+        this.depen_resp = depen_resp;
     }
 
     public String getOfi_asunto() {
@@ -60,6 +82,14 @@ public class OficioModel {
 
     public void setUser_id(int user_id) {
         this.user_id = user_id;
+    }
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 
     public String getOfi_obs() {
