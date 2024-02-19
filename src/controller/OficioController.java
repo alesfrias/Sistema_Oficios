@@ -88,7 +88,7 @@ public class OficioController {
             st.setString(3, oficio.getOfi_asunto());
             st.setString(4, oficio.getOfi_fech_crea());
             st.setInt(5, oficio.getUser_id());
-            st.setString(6,oficio.getOfi_obs());
+            st.setString(6, oficio.getOfi_obs());
 
             st.executeUpdate();
             st.close();
@@ -101,19 +101,19 @@ public class OficioController {
     }
 
 //    Actualizar Usuario
-    public void updUser(UsuarioModel usuario) throws Exception {
+    public void updOficio(OficioModel oficio) throws Exception {
 
         try {
             Connection conn = Conexion.conectar();
-            PreparedStatement st = conn.prepareStatement("UPDATE usuario_sistema "
+            PreparedStatement st = conn.prepareStatement("UPDATE oficio "
                     + "SET user_name = ?, depto_id = ?, user_rfc = ?, user_pwd = ?, user_rol = ? "
                     + "WHERE user_id = ?");
-            st.setString(1, usuario.getUser_name());
-            st.setInt(2, usuario.getDepto_id());
-            st.setString(3, usuario.getUser_rfc());
-            st.setString(4, usuario.getUser_pwd());
-            st.setString(5, usuario.getUser_rol());
-            st.setInt(6, usuario.getUser_id());
+            st.setString(1, oficio.getDepen_name());
+            st.setString(2, oficio.getDepen_resp());
+            st.setString(3, oficio.getDepen_resp());
+            st.setString(4, oficio.getOfi_fech_crea());
+            st.setString(5, oficio.getOfi_obs());
+            st.setInt(6, oficio.getOfi_id());
 
             st.executeUpdate();
             st.close();
@@ -143,20 +143,30 @@ public class OficioController {
             Conexion.conectar().close();
         }
     }
-    
+
     public void getDependencia(JComboBox dependencia) throws SQLException {
         try {
             Connection conn = Conexion.conectar();
-            PreparedStatement st = conn.prepareStatement("SELECT depen_name FROM oficio WHERE depen_status = 1");
+            PreparedStatement st = conn.prepareStatement("SELECT depen_name FROM dependencia WHERE depen_status = 1");
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
                 dependencia.addItem(rs.getString("depen_name"));
+                dependencia.addItem(rs.getString("depen_resp"));
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al listar las dependencias en el menu desplegable: " + e);
         } finally {
             Conexion.conectar().close();
+        }
+    }
+
+    private void mostrarResp(String selDependencia) {
+        try {
+            Connection conn = Conexion.conectar();
+            PreparedStatement st = conn.prepareStatement("SELECT depen_resp FROM dependencia WHERE depen_status = 1");
+            ResultSet rs = st.executeQuery();
+        } catch (Exception e) {
         }
     }
 }

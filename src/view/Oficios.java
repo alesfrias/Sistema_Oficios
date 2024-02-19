@@ -307,7 +307,7 @@ public class Oficios extends javax.swing.JPanel {
     }//GEN-LAST:event_lblNuevoMouseExited
 
     private void lblNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNuevoMouseClicked
-        FrmAdmin.ShowJPanel(new SetUsuarios());
+        FrmAdmin.ShowJPanel(new SetOficios());
     }//GEN-LAST:event_lblNuevoMouseClicked
 
     private void lblBorrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBorrarMouseClicked
