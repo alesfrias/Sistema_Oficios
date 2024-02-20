@@ -1,9 +1,12 @@
 package view;
 
+import controller.DependenciaController;
 import controller.OficioController;
 import model.OficioModel;
 import java.awt.Color;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
@@ -87,6 +90,7 @@ public class SetOficios extends javax.swing.JPanel {
         txtResponsable.setEditable(false);
         txtResponsable.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txtResponsable.setForeground(new java.awt.Color(0, 26, 90));
+        txtResponsable.setEnabled(false);
         txtResponsable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtResponsableActionPerformed(evt);
@@ -102,11 +106,16 @@ public class SetOficios extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(0, 26, 90));
         jLabel2.setText("Dependencia");
 
-        cmbDependencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione Dependencia" }));
+        cmbDependencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Dependencia" }));
         cmbDependencia.setNextFocusableComponent(txtJefatura);
         cmbDependencia.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbDependenciaItemStateChanged(evt);
+            }
+        });
+        cmbDependencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbDependenciaActionPerformed(evt);
             }
         });
         cmbDependencia.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -403,6 +412,17 @@ public class SetOficios extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbDependenciaItemStateChanged
 
+    private void cmbDependenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDependenciaActionPerformed
+        try {
+            String depen = cmbDependencia.getSelectedItem().toString();
+            cargarResponsable(depen);
+        } catch (Exception ex) {
+            Logger.getLogger(SetOficios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     
+
+    }//GEN-LAST:event_cmbDependenciaActionPerformed
+
 //    Método para guardar y Actualizar oficio
     private void GuardarOficio() {
         //Validar campos vacios
@@ -434,16 +454,23 @@ public class SetOficios extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Error al " + errorMsg + " usuario" + e);
         }
     }
-    
+
 //Llenar Combo de dependencia
     private void cargarDependencias(JComboBox cmbDependencia) {
         try {
-            OficioController dependencia = new OficioController();
+            DependenciaController dependencia = new DependenciaController();
             dependencia.getDependencia(cmbDependencia);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al listar las jefaturas en el menú desplegable" + e);
         }
     }
+
+    //Llenar Combo de dependencia
+    private void cargarResponsable(String depen) throws Exception {
+        DependenciaController resp = new DependenciaController();
+        txtResponsable.setText(resp.getDepenByName(depen).getDepen_resp());
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bckCancelar;

@@ -6,13 +6,14 @@ import java.util.List;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import model.DependenciaModel;
 import sql.Conexion;
 
 public class DependenciaController {
 
-//    Obtener Dependencias
+  //    Obtener Dependencias
     public List<DependenciaModel> getDependencias(String dependencia) throws Exception {
 
         List<DependenciaModel> list = null;
@@ -123,5 +124,47 @@ public class DependenciaController {
         } finally {
             Conexion.conectar().close();
         }
+    }
+//    Mostrar dependencias en ComboBox
+
+    public void getDependencia(JComboBox dependencia) throws SQLException {
+        try {
+            Connection conn = Conexion.conectar();
+            PreparedStatement st = conn.prepareStatement("SELECT depen_name, depen_resp FROM dependencia WHERE depen_status = 1");
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                dependencia.addItem(rs.getString("depen_name"));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al listar las dependencias en el menu desplegable: " + e);
+        } finally {
+            Conexion.conectar().close();
+        }
+    }
+
+   //    Obtener Dependencia por Nombre
+    public DependenciaModel getDepenByName(String depenName ) throws Exception {
+        DependenciaModel resp = new DependenciaModel();
+
+        try {
+            Connection conn = Conexion.conectar();
+            PreparedStatement st = conn.prepareStatement("SELECT depen_id, depen_name, depen_resp FROM dependencia WHERE depen_name = '" + depenName + "' AND depen_status = 1");
+
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                resp.setDepen_id(rs.getInt("depen_id"));
+                resp.setDepen_resp(rs.getString("depen_resp"));
+            }
+            System.out.println(rs);
+            rs.close();
+            st.close();
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener el responsable de la dependencia de la base de datos: " + e);
+        } finally {
+            Conexion.conectar().close();
+        }
+        return resp;
     }
 }

@@ -35,7 +35,7 @@ public class UsuarioController {
         return respuesta;
     }
 
-    //Obtener Departamentos
+    //Obtener Usuarios
     public List<UsuarioModel> getUsers(String user) throws Exception {
 
         List<UsuarioModel> list = null;
@@ -78,7 +78,7 @@ public class UsuarioController {
 
         try {
             Connection conn = Conexion.conectar();
-            PreparedStatement st = conn.prepareStatement("SELECT user_id, user_name, user_rfc, user_pwd FROM usuario_sistema WHERE user_id = " + userId + " AND user_status = 1");
+            PreparedStatement st = conn.prepareStatement("SELECT user_id, user_name, user_rfc, user_pwd, user_rol FROM usuario_sistema WHERE user_id = " + userId + " AND user_status = 1");
 
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -86,6 +86,7 @@ public class UsuarioController {
                 usuario.setUser_name(rs.getString("user_name"));
                 usuario.setUser_rfc(rs.getString("user_rfc"));
                 usuario.setUser_pwd(rs.getString("user_pwd"));
+                usuario.setUser_rol(rs.getString("user_rol"));
             }
             rs.close();
             st.close();

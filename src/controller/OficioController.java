@@ -144,22 +144,7 @@ public class OficioController {
         }
     }
 
-    public void getDependencia(JComboBox dependencia) throws SQLException {
-        try {
-            Connection conn = Conexion.conectar();
-            PreparedStatement st = conn.prepareStatement("SELECT depen_name FROM dependencia WHERE depen_status = 1");
-            ResultSet rs = st.executeQuery();
 
-            while (rs.next()) {
-                dependencia.addItem(rs.getString("depen_name"));
-                dependencia.addItem(rs.getString("depen_resp"));
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al listar las dependencias en el menu desplegable: " + e);
-        } finally {
-            Conexion.conectar().close();
-        }
-    }
 
     private void mostrarResp(String selDependencia) {
         try {

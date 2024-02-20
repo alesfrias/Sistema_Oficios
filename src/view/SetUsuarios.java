@@ -42,6 +42,7 @@ public class SetUsuarios extends javax.swing.JPanel {
                 txtNombre.setText(userUpdate.getUser_name());
                 txtRfc.setText(userUpdate.getUser_rfc());
                 txtContraseña.setText(userUpdate.getUser_pwd());
+                cmbRol.setSelectedItem(userUpdate.getUser_rol());
             }
         }
     }
@@ -102,7 +103,7 @@ public class SetUsuarios extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(0, 26, 90));
         jLabel2.setText("Departamento");
 
-        cmbArea.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione Jefatura" }));
+        cmbArea.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Jefatura" }));
         cmbArea.setNextFocusableComponent(txtRfc);
         cmbArea.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -145,7 +146,7 @@ public class SetUsuarios extends javax.swing.JPanel {
         jLabel5.setForeground(new java.awt.Color(0, 26, 90));
         jLabel5.setText("Tipo de Usuario");
 
-        cmbRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione el Tipo de Usuario", "Administrador", "Normal" }));
+        cmbRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Perfil de Usuario", "Administrador", "Normal" }));
         cmbRol.setNextFocusableComponent(lblGuardar);
         cmbRol.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -371,7 +372,7 @@ public class SetUsuarios extends javax.swing.JPanel {
         //Validar campos vacios
         if (txtNombre.getText().isEmpty() || txtRfc.getText().isEmpty()
                 || txtContraseña.getText().isEmpty() || cmbArea.getSelectedIndex() == 0
-                || cmbRol.getSelectedIndex() == 0) {
+                || cmbRol.getSelectedIndex()== 0) {
             JOptionPane.showMessageDialog(null, "Es necesario ingresar todos los datos");
             return;
         }
@@ -379,7 +380,6 @@ public class SetUsuarios extends javax.swing.JPanel {
         UsuarioModel usuario = upd ? userUpdate : new UsuarioModel();
         usuario.setUser_name(txtNombre.getText().trim());
         usuario.setDepto_id(cmbArea.getSelectedIndex());
-        usuario.setUser_rfc(txtRfc.getText().trim());
         usuario.setUser_pwd(txtContraseña.getText().trim());
         usuario.setUser_rol(cmbRol.getSelectedItem().toString());
 
