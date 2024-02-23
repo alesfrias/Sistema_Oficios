@@ -11,7 +11,7 @@ public class OficioModel {
     private int user_id;
     private String user_name;
     private String ofi_obs;
-    private int ofi_status;
+    private String ofi_status;
     private String ofi_update;
 
     public OficioModel() {
@@ -24,7 +24,7 @@ public class OficioModel {
         this.user_id = 0;
         this.user_name = "";
         this.ofi_obs = "";
-        this.ofi_status = 0;
+        this.ofi_status = "";
         this.ofi_update = "";
     }
 
@@ -100,11 +100,11 @@ public class OficioModel {
         this.ofi_obs = ofi_obs;
     }
 
-    public int getOfi_status() {
+    public String getOfi_status() {
         return ofi_status;
     }
 
-    public void setOfi_status(int ofi_status) {
+    public void setOfi_status(String ofi_status) {
         this.ofi_status = ofi_status;
     }
 

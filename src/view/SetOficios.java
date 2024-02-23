@@ -9,40 +9,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 public class SetOficios extends javax.swing.JPanel {
 
-    boolean upd = false;
-    OficioModel ofiUpdate;
     OficioController oficioController = new OficioController();
     OficioModel oficio = new OficioModel();
+    DependenciaController dependencia = new DependenciaController();
 
     public SetOficios() {
         initComponents();
-        initUpdate();
         setVisible(true);
         cargarDependencias(cmbDependencia);
-    }
-
-    public SetOficios(OficioModel oficio) {
-        initComponents();
-        upd = true;
-        ofiUpdate = oficio;
-        initUpdate();
-        setVisible(true);
-        cargarDependencias(cmbDependencia);
-    }
-
-    private void initUpdate() {
-        if (upd) {
-            lblHeader.setText("Editar Oficio");
-            lblGuardar.setText("Actualizar Oficio");
-
-            if (ofiUpdate != null) {
-                txtAsunto.setText(ofiUpdate.getOfi_asunto());
-                txtResponsable.setText(ofiUpdate.getDepen_resp());
-            }
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -64,11 +42,10 @@ public class SetOficios extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
         bckCancelar = new javax.swing.JPanel();
         lblCancelar = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        txtStatus = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtObs = new javax.swing.JTextArea();
+        txtFecha = new com.toedter.calendar.JDateChooser();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(995, 559));
@@ -141,8 +118,10 @@ public class SetOficios extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(0, 26, 90));
         jLabel4.setText("Dirigido  a:");
 
+        txtJefatura.setEditable(false);
         txtJefatura.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txtJefatura.setForeground(new java.awt.Color(0, 26, 90));
+        txtJefatura.setEnabled(false);
         txtJefatura.setNextFocusableComponent(txtResponsable);
         txtJefatura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -198,7 +177,7 @@ public class SetOficios extends javax.swing.JPanel {
         lblCancelar.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         lblCancelar.setForeground(new java.awt.Color(255, 255, 255));
         lblCancelar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCancelar.setText("Cancelar");
+        lblCancelar.setText("Salir");
         lblCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -230,25 +209,6 @@ public class SetOficios extends javax.swing.JPanel {
             .addComponent(lblCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jLabel6.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 26, 90));
-        jLabel6.setText("Estatus del Oficio");
-
-        txtStatus.setEditable(false);
-        txtStatus.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        txtStatus.setForeground(new java.awt.Color(0, 26, 90));
-        txtStatus.setNextFocusableComponent(txtResponsable);
-        txtStatus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtStatusActionPerformed(evt);
-            }
-        });
-        txtStatus.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtStatusKeyPressed(evt);
-            }
-        });
-
         jLabel7.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 26, 90));
         jLabel7.setText("Observaciones");
@@ -257,24 +217,26 @@ public class SetOficios extends javax.swing.JPanel {
         txtObs.setRows(5);
         jScrollPane1.setViewportView(txtObs);
 
+        txtFecha.setDateFormatString("yyyy-MM-dd");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(57, 57, 57)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtJefatura, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
-                        .addComponent(jLabel3)
-                        .addComponent(lblHeader)
-                        .addComponent(jLabel2)
-                        .addComponent(cmbDependencia, 0, 350, Short.MAX_VALUE))
-                    .addComponent(txtResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtJefatura)
+                    .addComponent(jLabel3)
+                    .addComponent(lblHeader)
+                    .addComponent(jLabel2)
+                    .addComponent(cmbDependencia, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtResponsable)
                     .addComponent(jLabel5)
                     .addComponent(jLabel1)
-                    .addComponent(txtAsunto, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(txtAsunto)
+                    .addComponent(jLabel4)
+                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(67, 67, 67)
@@ -284,8 +246,6 @@ public class SetOficios extends javax.swing.JPanel {
                         .addComponent(bckCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bckGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel6)
-                    .addComponent(txtStatus)
                     .addComponent(jLabel7)
                     .addComponent(jScrollPane1))
                 .addGap(89, 89, 89))
@@ -297,41 +257,36 @@ public class SetOficios extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblHeader)
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbDependencia, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtAsunto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtJefatura, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(26, 26, 26)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(bckCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(bckGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbDependencia, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtResponsable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(28, 28, 28)
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtAsunto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(32, 32, 32)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtJefatura, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
-                                .addComponent(jLabel5)
-                                .addGap(0, 67, Short.MAX_VALUE))))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(bckCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bckGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(30, 30, 30))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -400,14 +355,6 @@ public class SetOficios extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtAsuntoKeyPressed
 
-    private void txtStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStatusActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtStatusActionPerformed
-
-    private void txtStatusKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStatusKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtStatusKeyPressed
-
     private void cmbDependenciaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDependenciaItemStateChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbDependenciaItemStateChanged
@@ -419,53 +366,47 @@ public class SetOficios extends javax.swing.JPanel {
         } catch (Exception ex) {
             Logger.getLogger(SetOficios.class.getName()).log(Level.SEVERE, null, ex);
         }
-     
+
 
     }//GEN-LAST:event_cmbDependenciaActionPerformed
 
 //    Método para guardar y Actualizar oficio
     private void GuardarOficio() {
         //Validar campos vacios
-        if (txtAsunto.getText().isEmpty() || txtResponsable.getText().isEmpty() || cmbDependencia.getSelectedIndex() == 0) {
+        String fecha = ((JTextField) txtFecha.getDateEditor().getUiComponent()).getText();
+        if (cmbDependencia.getSelectedIndex() == 0 || txtAsunto.getText().isEmpty()
+                || txtJefatura.getText().isEmpty() || fecha.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Es necesario ingresar todos los datos");
             return;
         }
-
-        oficio = upd ? ofiUpdate : new OficioModel();
-        oficio.setOfi_asunto(txtAsunto.getText().trim());
         oficio.setDepen_name(cmbDependencia.getSelectedItem().toString());
-        oficio.setDepen_resp(txtResponsable.getText().trim());
+        oficio.setOfi_asunto(txtAsunto.getText().trim());
+        oficio.setUser_name(txtJefatura.getText().trim());
+        oficio.setOfi_fech_crea(fecha);
+        oficio.setOfi_obs(txtObs.getText().trim());
 
         try {
+            oficioController.addOficio(oficio);
 
-            if (!upd) {
-                oficioController.addOficio(oficio);
-
-            } else {
-                oficioController.updOficio(oficio);
-
-            }
-            String successMsg = upd ? "actualizado" : "registrado";
-            JOptionPane.showMessageDialog(null, "Usuario " + successMsg + " correctamente");
-            FrmAdmin.ShowJPanel(new Usuarios());
+            JOptionPane.showMessageDialog(null, "Oficio agregado correctamente");
+            FrmAdmin.ShowJPanel(new Oficios());
 
         } catch (Exception e) {
-            String errorMsg = upd ? "editar" : "registrar";
-            JOptionPane.showMessageDialog(null, "Error al " + errorMsg + " usuario" + e);
+            JOptionPane.showMessageDialog(null, "Error al agregar oficio: " + e);
         }
     }
 
 //Llenar Combo de dependencia
     private void cargarDependencias(JComboBox cmbDependencia) {
+//    private void cargarDependencias(JComboBox cmbDependencia) {
         try {
-            DependenciaController dependencia = new DependenciaController();
             dependencia.getDependencia(cmbDependencia);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al listar las jefaturas en el menú desplegable" + e);
+            JOptionPane.showMessageDialog(null, "Error al listar las dependencias en el menú desplegable" + e);
         }
     }
 
-    //Llenar Combo de dependencia
+    //Llenar campo de responsable de dependencia
     private void cargarResponsable(String depen) throws Exception {
         DependenciaController resp = new DependenciaController();
         txtResponsable.setText(resp.getDepenByName(depen).getDepen_resp());
@@ -481,7 +422,6 @@ public class SetOficios extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
@@ -489,9 +429,9 @@ public class SetOficios extends javax.swing.JPanel {
     private javax.swing.JLabel lblGuardar;
     private javax.swing.JLabel lblHeader;
     private javax.swing.JTextField txtAsunto;
+    private com.toedter.calendar.JDateChooser txtFecha;
     private javax.swing.JTextField txtJefatura;
     private javax.swing.JTextArea txtObs;
     private javax.swing.JTextField txtResponsable;
-    private javax.swing.JTextField txtStatus;
     // End of variables declaration//GEN-END:variables
 }

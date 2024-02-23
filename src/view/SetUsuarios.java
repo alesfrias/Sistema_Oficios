@@ -377,7 +377,7 @@ public class SetUsuarios extends javax.swing.JPanel {
             return;
         }
 
-        UsuarioModel usuario = upd ? userUpdate : new UsuarioModel();
+         UsuarioModel usuario = upd ? userUpdate : new UsuarioModel();
         usuario.setUser_name(txtNombre.getText().trim());
         usuario.setDepto_id(cmbArea.getSelectedIndex());
         usuario.setUser_pwd(txtContraseña.getText().trim());

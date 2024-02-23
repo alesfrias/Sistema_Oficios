@@ -13,7 +13,7 @@ import sql.Conexion;
 
 public class DependenciaController {
 
-  //    Obtener Dependencias
+    //    Obtener Dependencias
     public List<DependenciaModel> getDependencias(String dependencia) throws Exception {
 
         List<DependenciaModel> list = null;
@@ -130,7 +130,7 @@ public class DependenciaController {
     public void getDependencia(JComboBox dependencia) throws SQLException {
         try {
             Connection conn = Conexion.conectar();
-            PreparedStatement st = conn.prepareStatement("SELECT depen_name, depen_resp FROM dependencia WHERE depen_status = 1");
+            PreparedStatement st = conn.prepareStatement("SELECT depen_id, depen_name FROM dependencia WHERE depen_status = 1");
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
@@ -143,17 +143,16 @@ public class DependenciaController {
         }
     }
 
-   //    Obtener Dependencia por Nombre
-    public DependenciaModel getDepenByName(String depenName ) throws Exception {
+    //    Obtener Dependencia por Nombre
+    public DependenciaModel getDepenByName(String depenName) throws Exception {
         DependenciaModel resp = new DependenciaModel();
 
         try {
             Connection conn = Conexion.conectar();
-            PreparedStatement st = conn.prepareStatement("SELECT depen_id, depen_name, depen_resp FROM dependencia WHERE depen_name = '" + depenName + "' AND depen_status = 1");
+            PreparedStatement st = conn.prepareStatement("SELECT depen_resp FROM dependencia WHERE depen_name = '" + depenName + "' AND depen_status = 1");
 
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                resp.setDepen_id(rs.getInt("depen_id"));
                 resp.setDepen_resp(rs.getString("depen_resp"));
             }
             System.out.println(rs);
